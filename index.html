@@ -366,13 +366,19 @@
       <div class="catalog-grid">
         <div class="product-card" data-id="bl1" data-price="730">
           <span class="product-badge">El favorito</span><div class="in-cart-badge">✓</div>
-          <div class="product-img">🌸</div>
+          <div class="product-img" style="padding:0;overflow:hidden;">
+            <img id="img-bl1" src="https://media.ulta.com/i/ulta/2647881?w=500&h=500" alt="Rare Beauty Soft Pinch Liquid Blush - Happy" style="width:100%;height:100%;object-fit:cover;display:block;transition:opacity 0.3s;">
+          </div>
           <div class="product-info">
             <p class="product-brand">Rare Beauty</p>
             <h3 class="product-name">Soft Pinch Liquid Blush</h3>
             <p class="product-desc">Una gotita dura todo el día. El blush más viral de TikTok, duración hasta 12 horas.</p>
             <span class="tone-label">Selecciona tono</span>
-            <select class="tone-select" id="tone-bl1">
+            <select class="tone-select" id="tone-bl1" onchange="
+              const imgs={'Happy (coral vivo)':'https://media.ulta.com/i/ulta/2647881?w=500&h=500','Joy (rosado brillante)':'https://media.ulta.com/i/ulta/2647883?w=500&h=500','Hope (nude rosado)':'https://media.ulta.com/i/ulta/2647882?w=500&h=500','Lucky (melocotón)':'https://media.ulta.com/i/ulta/2647884?w=500&h=500','Bliss (rosa suave)':'https://media.ulta.com/i/ulta/2647890?w=500&h=500','Encourage (terracota)':'https://media.ulta.com/i/ulta/2647879?w=500&h=500','Grateful (durazno dorado)':'https://media.ulta.com/i/ulta/2647880?w=500&h=500'};
+              const el=document.getElementById('img-bl1');
+              if(imgs[this.value]){el.style.opacity=0;setTimeout(()=>{el.src=imgs[this.value];el.style.opacity=1;},200);}
+            ">
               <option value="">— Elige un tono —</option>
               <option>Happy (coral vivo)</option><option>Joy (rosado brillante)</option>
               <option>Hope (nude rosado)</option><option>Lucky (melocotón)</option>
@@ -393,7 +399,7 @@
             <span class="tone-label">Selecciona tono</span>
             <select class="tone-select" id="tone-bl2">
               <option value="">— Elige un tono —</option>
-              <option>Turks & Caicos (coral)</option><option>Bora Bora (rosado)</option>
+              <option>Turks &amp; Caicos (coral)</option><option>Bora Bora (rosado)</option>
               <option>Fiji (melocotón)</option><option>Cabo (nude terracota)</option>
               <option>St. Lucia (rosado intenso)</option>
             </select>
@@ -768,7 +774,9 @@
   </div>
   <div class="order-summary reveal" id="orderSummary"></div>
   <form id="orderForm" class="reveal" action="https://formspree.io/f/xqejbyrj" method="POST" enctype="multipart/form-data">
+    <!-- Campos ocultos para datos del carrito -->
     <input type="hidden" name="_subject" value="✦ Nuevo pedido — Aurum Beauty HN">
+    <input type="hidden" name="_replyto" id="replyToEmail">
     <input type="hidden" name="Productos_del_pedido" id="hiddenProducts">
     <input type="hidden" name="Total_del_pedido" id="hiddenTotal">
     <input type="hidden" name="Adelanto_50_porciento" id="hiddenAdelanto">
@@ -779,12 +787,12 @@
       </div>
       <div class="form-group">
         <label class="form-label">Correo electrónico</label>
-        <input type="email" id="clientEmail" name="Correo" class="form-input" placeholder="tucorreo@email.com" required>
+        <input type="email" id="clientEmail" name="Correo" class="form-input" placeholder="tucorreo@gmail.com" required>
       </div>
     </div>
     <div class="form-group">
       <label class="form-label">Ciudad en Honduras</label>
-      <select class="form-select" required>
+      <select class="form-select" name="Ciudad" required>
         <option value="" disabled selected style="background:#1a1a1a">Selecciona tu ciudad</option>
         <option style="background:#1a1a1a">Tegucigalpa</option>
         <option style="background:#1a1a1a">San Pedro Sula</option>
@@ -795,7 +803,7 @@
     </div>
     <div class="form-group">
       <label class="form-label">Comentarios adicionales</label>
-      <textarea class="form-textarea" id="extraNotes" placeholder="Aromas para el set de jabones, instrucciones especiales, preguntas..."></textarea>
+      <textarea class="form-textarea" id="extraNotes" name="Comentarios" placeholder="Aromas para el set de jabones, instrucciones especiales, preguntas..."></textarea>
     </div>
     <div class="form-divider">datos de pago</div>
     <div style="padding:24px;border:1px solid rgba(201,168,76,0.2);margin-bottom:28px;background:rgba(201,168,76,0.04);">
@@ -817,12 +825,12 @@
     <div class="form-group">
       <label class="form-label">Comprobante de transferencia</label>
       <div class="file-upload-area" id="uploadArea">
-        <input type="file" id="comprobanteFile" accept="image/*,.pdf" onchange="handleFile(this)">
+        <input type="file" id="comprobanteFile" name="Comprobante_de_transferencia" accept="image/*,.pdf" onchange="handleFile(this)">
         <div class="file-upload-icon">📎</div>
         <p class="file-upload-text"><strong>Sube tu comprobante aquí</strong><br>Arrastrá o tocá para seleccionar · JPG, PNG o PDF</p>
       </div>
       <div class="file-preview" id="filePreview"></div>
-      <p class="form-note">Si aún no has transferido, envíalo después por correo.</p>
+      <p class="form-note" id="comprobanteHint">Si aún no has transferido, envíalo después por correo.</p>
     </div>
     <button type="submit" class="submit-btn">Enviar pedido</button>
   </form>
@@ -945,16 +953,24 @@
     const name=document.getElementById('clientName').value,email=document.getElementById('clientEmail').value;
     const file=document.getElementById('comprobanteFile').files[0];
     const total=cart.reduce((s,i)=>s+i.price,0),adelanto=Math.round(total*0.5);
-    document.getElementById('hiddenProducts').value=cart.map(i=>`${i.brand} — ${i.name}${i.tone?' ('+i.tone+')':''}: L${i.price.toLocaleString()}`).join(' | ');
+
+    // Poblar campos ocultos para Formspree
+    document.getElementById('replyToEmail').value=email;
+    const productLines=cart.map(i=>`${i.brand} — ${i.name}${i.tone?' ('+i.tone+')':''}: L${i.price.toLocaleString()}`).join(' | ');
+    document.getElementById('hiddenProducts').value=productLines;
     document.getElementById('hiddenTotal').value='L'+total.toLocaleString();
     document.getElementById('hiddenAdelanto').value='L'+adelanto.toLocaleString();
+
     const btn=this.querySelector('.submit-btn');
+    const file=document.getElementById('comprobanteFile').files[0];
+
     btn.textContent='Enviando...';btn.disabled=true;
+
     fetch('https://formspree.io/f/xqejbyrj',{method:'POST',body:new FormData(this),headers:{Accept:'application/json'}})
       .then(r=>{
         if(r.ok){
           this.style.display='none';
-          document.getElementById('successText').innerHTML=`Hola <strong style="color:var(--gold)">${name}</strong>, tu pedido fue recibido. 🖤<br><br>Enviamos la confirmación a <strong style="color:var(--white)">${email}</strong><br><br><span style="font-size:11px;display:block;text-align:left;padding:16px;border:1px solid rgba(201,168,76,0.15);background:rgba(201,168,76,0.04);line-height:2.2;">${cart.map(i=>`📦 ${i.brand} — ${i.name}${i.tone?' · '+i.tone:''} · <strong style="color:var(--gold)">L${i.price.toLocaleString()}</strong>`).join('<br>')}<br><br>💳 Adelanto requerido: <strong style="color:var(--gold)">L${adelanto.toLocaleString()}</strong><br>${file?'✓ Comprobante adjunto: '+file.name:'⚠ Sin comprobante — envíalo por correo.'}</span><br>Nos pondremos en contacto en menos de 24 horas. ✦`;
+          document.getElementById('successText').innerHTML=`Hola <strong style="color:var(--gold)">${name}</strong>, tu pedido fue recibido. 🖤<br><br>Enviamos la confirmación a <strong style="color:var(--white)">${email}</strong><br><br><span style="font-size:11px;display:block;text-align:left;padding:16px;border:1px solid rgba(201,168,76,0.15);background:rgba(201,168,76,0.04);line-height:2.2;">${cart.map(i=>`📦 ${i.brand} — ${i.name}${i.tone?' · '+i.tone:''} · <strong style="color:var(--gold)">L${i.price.toLocaleString()}</strong>`).join('<br>')}<br><br>💳 Adelanto requerido: <strong style="color:var(--gold)">L${adelanto.toLocaleString()}</strong><br>${file?'✓ Comprobante adjunto: '+file.name:'⚠ Sin comprobante — envíalo después por Instagram.'}</span><br>Nos pondremos en contacto en menos de 24 horas. ✦`;
           document.getElementById('successMsg').classList.add('show');
         } else {
           btn.textContent='Enviar pedido';btn.disabled=false;

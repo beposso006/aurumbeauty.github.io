@@ -1,0 +1,2418 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aurum Beauty HN</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black:#1a2744;--white:#f5f0e8;--gold:#1e3a8a;--gold-light:#2d52b8;
+    --gold-dim:rgba(30,58,138,0.1);--gray:#eee8dc;--text-muted:#6b7280;
+    --blue:#1e3a8a;--blue-light:#2d52b8;--blue-dim:rgba(30,58,138,0.08);
+    --cream:#fffaee;--cream-dark:#f5efdc;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--cream);color:var(--black);font-family:'Montserrat',sans-serif;font-weight:300;overflow-x:hidden;cursor:none;}
+  .cursor{width:8px;height:8px;background:var(--blue);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;}
+  .cursor-ring{width:32px;height:32px;border:1px solid rgba(30,58,138,0.4);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transition:all 0.25s ease;transform:translate(-50%,-50%);}
+  nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:22px 48px;display:flex;justify-content:space-between;align-items:center;background:#fffaee;border-bottom:1px solid rgba(30,58,138,0.08);}
+  .nav-logo{display:flex;align-items:center;gap:10px;}
+  .nav-logo img{height:36px;width:auto;}
+  .nav-logo-text{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;letter-spacing:6px;color:var(--blue);text-transform:uppercase;}
+  .nav-links{display:flex;gap:32px;list-style:none;}
+  .nav-links a{color:var(--black);text-decoration:none;font-size:10px;letter-spacing:3px;text-transform:uppercase;opacity:0.5;transition:all 0.3s;}
+  .nav-links a:hover{opacity:1;color:var(--blue);}
+  .cart-btn{background:transparent;border:1px solid rgba(30,58,138,0.3);color:var(--blue);padding:8px 18px;font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:none;transition:all 0.3s;display:flex;align-items:center;gap:8px;}
+  .cart-btn:hover{background:var(--blue-dim);border-color:var(--blue);}
+  .cart-count{background:var(--blue);color:var(--cream);border-radius:50%;width:18px;height:18px;font-size:10px;font-weight:600;display:flex;align-items:center;justify-content:center;}
+  .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 24px;position:relative;overflow:hidden;background:#fffaee;}
+  .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 60%,rgba(30,58,138,0.06),transparent 70%);}
+  .hero-logo{width:clamp(180px,28vw,320px);margin-bottom:40px;opacity:0;animation:fadeUp 1s ease 0.3s forwards;}
+  .hero-eyebrow{font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--blue);margin-bottom:24px;opacity:0;animation:fadeUp 1s ease 0.5s forwards;}
+  .hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(56px,9vw,110px);font-weight:300;line-height:0.9;letter-spacing:-2px;margin-bottom:8px;opacity:0;animation:fadeUp 1s ease 0.6s forwards;color:var(--black);}
+  .hero-title em{font-style:italic;color:var(--blue);}
+  .hero-subtitle{font-family:'Cormorant Garamond',serif;font-size:clamp(13px,2vw,17px);font-weight:300;letter-spacing:4px;text-transform:uppercase;color:var(--text-muted);margin-top:20px;margin-bottom:48px;opacity:0;animation:fadeUp 1s ease 0.8s forwards;}
+  .hero-cta{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;opacity:0;animation:fadeUp 1s ease 1s forwards;}
+  .btn-primary{padding:14px 40px;background:var(--blue);color:var(--cream);font-family:'Montserrat',sans-serif;font-size:10px;font-weight:500;letter-spacing:4px;text-transform:uppercase;border:none;cursor:none;text-decoration:none;transition:all 0.3s;display:inline-block;}
+  .btn-primary:hover{background:var(--blue-light);transform:translateY(-1px);}
+  .btn-outline{padding:14px 40px;background:transparent;color:var(--blue);font-family:'Montserrat',sans-serif;font-size:10px;font-weight:500;letter-spacing:4px;text-transform:uppercase;border:1px solid rgba(30,58,138,0.3);cursor:none;text-decoration:none;transition:all 0.3s;display:inline-block;}
+  .btn-outline:hover{border-color:var(--blue);background:var(--blue-dim);}
+  .gold-line{width:60px;height:1px;background:var(--blue);margin:0 auto 60px;opacity:0.3;}
+  .how-section{padding:100px 48px;max-width:1000px;margin:0 auto;text-align:center;background:var(--cream);}
+  .section-label{font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--blue);margin-bottom:16px;}
+  .section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,5vw,56px);font-weight:300;line-height:1.1;margin-bottom:60px;color:var(--black);}
+  .section-title em{color:var(--blue);font-style:italic;}
+  .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:40px;}
+  .step{padding:32px 24px;border:1px solid rgba(30,58,138,0.12);transition:border-color 0.3s;background:var(--cream);}
+  .step:hover{border-color:rgba(30,58,138,0.35);}
+  .step-number{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:300;color:rgba(30,58,138,0.18);line-height:1;margin-bottom:16px;}
+  .step-title{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--blue);margin-bottom:12px;}
+  .step-desc{font-size:13px;line-height:1.8;color:var(--text-muted);}
+  .catalog-section{padding:100px 48px;background:var(--cream-dark);}
+  .catalog-inner{max-width:1200px;margin:0 auto;}
+  .catalog-header{text-align:center;margin-bottom:60px;}
+
+  /* CATEGORY TABS */
+  .cat-tabs{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:48px;}
+  .cat-tab{padding:10px 20px;background:transparent;border:1px solid rgba(30,58,138,0.15);color:var(--text-muted);font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:none;transition:all 0.3s;}
+  .cat-tab:hover,.cat-tab.active{border-color:var(--blue);color:var(--blue);background:var(--blue-dim);}
+
+  /* CATEGORY SECTIONS */
+  .cat-section{display:none;animation:fadeUp 0.4s ease;}
+  .cat-section.active{display:block;}
+  .cat-section-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--black);margin-bottom:24px;padding-bottom:12px;border-bottom:1px solid rgba(30,58,138,0.15);}
+  .cat-section-title em{color:var(--blue);font-style:italic;}
+
+  .catalog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:24px;}
+  .product-card{background:var(--cream);border:1px solid rgba(30,58,138,0.08);transition:all 0.3s;position:relative;overflow:hidden;}
+  .product-card:hover{border-color:rgba(30,58,138,0.25);transform:translateY(-4px);box-shadow:0 12px 40px rgba(30,58,138,0.08);}
+  .product-card.in-cart{border-color:var(--blue);}
+  .product-badge{position:absolute;top:16px;left:16px;background:var(--blue);color:var(--cream);font-size:9px;font-weight:500;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;z-index:1;}
+  .in-cart-badge{position:absolute;top:16px;right:16px;background:var(--blue);color:var(--cream);font-size:16px;z-index:1;width:28px;height:28px;border-radius:50%;display:none;align-items:center;justify-content:center;}
+  .product-card.in-cart .in-cart-badge{display:flex;}
+  .product-img{width:100%;aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:64px;background:linear-gradient(135deg,var(--cream-dark),var(--cream));position:relative;}
+  .product-img::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(30,58,138,0.03),transparent 70%);}
+  .product-info{padding:20px;}
+  .product-brand{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--blue);margin-bottom:6px;}
+  .product-name{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;margin-bottom:4px;line-height:1.3;color:var(--black);}
+  .product-desc{font-size:11px;color:var(--text-muted);margin-bottom:14px;line-height:1.6;}
+  .tone-label{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;display:block;}
+  .tone-select{width:100%;padding:8px 12px;background:var(--cream-dark);border:1px solid rgba(30,58,138,0.15);color:var(--black);font-family:'Montserrat',sans-serif;font-size:11px;font-weight:300;outline:none;cursor:pointer;appearance:none;transition:border-color 0.3s;margin-bottom:12px;}
+  .tone-select:focus{border-color:var(--blue);}
+  .no-tone{font-size:10px;color:var(--text-muted);font-style:italic;margin-bottom:12px;display:block;}
+  .product-pricing{display:flex;justify-content:space-between;align-items:center;margin-top:12px;}
+  .product-price{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;color:var(--blue);}
+  .product-price span{font-size:11px;color:var(--text-muted);font-family:'Montserrat',sans-serif;font-weight:300;}
+  .add-btn{width:100%;padding:10px 16px;background:transparent;border:1px solid var(--blue);color:var(--blue);font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;cursor:none;transition:all 0.3s;margin-top:8px;display:block;}
+  .add-btn:hover,.add-btn.added{background:var(--blue);color:var(--cream);}
+
+  /* CART DRAWER */
+  .cart-overlay{position:fixed;inset:0;background:rgba(26,39,68,0.4);z-index:300;opacity:0;pointer-events:none;transition:opacity 0.3s;}
+  .cart-overlay.open{opacity:1;pointer-events:all;}
+  .cart-drawer{position:fixed;right:0;top:0;bottom:0;width:420px;max-width:100vw;background:var(--cream);z-index:301;transform:translateX(100%);transition:transform 0.4s cubic-bezier(0.4,0,0.2,1);display:flex;flex-direction:column;border-left:1px solid rgba(30,58,138,0.1);}
+  .cart-drawer.open{transform:translateX(0);}
+  .cart-drawer-header{padding:28px 28px 20px;border-bottom:1px solid rgba(30,58,138,0.08);display:flex;justify-content:space-between;align-items:center;flex-shrink:0;}
+  .cart-drawer-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--black);}
+  .cart-drawer-title span{color:var(--blue);}
+  .cart-close{background:none;border:none;color:var(--black);font-size:24px;cursor:none;opacity:0.4;transition:opacity 0.2s;}
+  .cart-close:hover{opacity:1;}
+  .cart-items{flex:1;overflow-y:auto;padding:20px 28px;scrollbar-width:thin;scrollbar-color:var(--blue) transparent;}
+  .cart-empty{text-align:center;padding:60px 20px;color:var(--text-muted);}
+  .cart-empty-icon{font-size:48px;margin-bottom:16px;opacity:0.4;}
+  .cart-empty-text{font-size:13px;letter-spacing:1px;line-height:1.8;}
+  .cart-item{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid rgba(30,58,138,0.06);align-items:flex-start;animation:fadeUp 0.3s ease;}
+  .cart-item-emoji{font-size:32px;width:56px;height:56px;background:var(--cream-dark);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .cart-item-info{flex:1;}
+  .cart-item-brand{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--blue);margin-bottom:3px;}
+  .cart-item-name{font-family:'Cormorant Garamond',serif;font-size:15px;margin-bottom:3px;color:var(--black);}
+  .cart-item-tone{font-size:10px;color:var(--text-muted);}
+  .cart-item-price{font-size:13px;color:var(--blue);font-family:'Cormorant Garamond',serif;margin-top:4px;}
+  .cart-item-remove{background:none;border:none;color:var(--text-muted);font-size:18px;cursor:none;transition:color 0.2s;flex-shrink:0;padding:4px;}
+  .cart-item-remove:hover{color:#dc2626;}
+  .cart-footer{padding:20px 28px 28px;border-top:1px solid rgba(30,58,138,0.08);flex-shrink:0;}
+  .cart-subtotal{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+  .cart-subtotal-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);}
+  .cart-subtotal-amount{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--blue);}
+  .cart-note{font-size:10px;color:var(--text-muted);margin-bottom:20px;line-height:1.6;}
+  .cart-checkout-btn{width:100%;padding:16px;background:var(--blue);color:var(--cream);font-family:'Montserrat',sans-serif;font-size:11px;font-weight:500;letter-spacing:4px;text-transform:uppercase;border:none;cursor:none;transition:all 0.3s;}
+  .cart-checkout-btn:hover{background:var(--blue-light);transform:translateY(-1px);}
+  .cart-checkout-btn:disabled{background:#ccc;color:#999;cursor:not-allowed;transform:none;}
+
+  /* CHECKOUT */
+  .checkout-section{padding:100px 48px;max-width:720px;margin:0 auto;display:none;}
+  .checkout-section.visible{display:block;}
+  .checkout-header{text-align:center;margin-bottom:40px;}
+  .order-summary{background:var(--cream-dark);padding:24px;margin-bottom:32px;border:1px solid rgba(30,58,138,0.12);}
+  .summary-title{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--blue);margin-bottom:16px;}
+  .summary-item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(30,58,138,0.06);font-size:13px;color:var(--black);}
+  .summary-item:last-child{border-bottom:none;}
+  .summary-item-tone{font-size:10px;color:var(--text-muted);}
+  .summary-item-price{color:var(--blue);font-family:'Cormorant Garamond',serif;font-size:16px;}
+  .summary-total{display:flex;justify-content:space-between;align-items:center;margin-top:16px;padding-top:16px;border-top:1px solid rgba(30,58,138,0.15);}
+  .summary-total-amount{font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--blue);}
+  .edit-cart-btn{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);background:none;border:none;cursor:none;text-decoration:underline;margin-top:12px;display:block;transition:color 0.2s;}
+  .edit-cart-btn:hover{color:var(--blue);}
+  .form-group{margin-bottom:24px;}
+  .form-label{display:block;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--blue);margin-bottom:10px;}
+  .form-input,.form-textarea,.form-select{width:100%;padding:14px 18px;background:var(--cream-dark);border:1px solid rgba(30,58,138,0.12);color:var(--black);font-family:'Montserrat',sans-serif;font-size:13px;font-weight:300;outline:none;transition:border-color 0.3s;appearance:none;}
+  .form-input:focus,.form-textarea:focus,.form-select:focus{border-color:var(--blue);}
+  .form-input::placeholder,.form-textarea::placeholder{color:rgba(26,39,68,0.3);}
+  .form-textarea{min-height:80px;resize:vertical;}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .form-note{font-size:11px;color:var(--text-muted);margin-top:8px;line-height:1.6;}
+  .form-divider{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;margin:32px 0;color:var(--text-muted);font-size:10px;letter-spacing:2px;}
+  .form-divider::before,.form-divider::after{content:'';height:1px;background:rgba(30,58,138,0.1);}
+  .file-upload-area{border:1px dashed rgba(30,58,138,0.25);padding:28px;text-align:center;transition:all 0.3s;position:relative;}
+  .file-upload-area:hover{border-color:var(--blue);background:var(--blue-dim);}
+  .file-upload-area input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+  .file-upload-icon{font-size:28px;margin-bottom:10px;}
+  .file-upload-text{font-size:11px;color:var(--text-muted);letter-spacing:1px;line-height:1.8;}
+  .file-upload-text strong{color:var(--blue);}
+  .file-preview{display:none;margin-top:12px;padding:10px 16px;background:var(--blue-dim);border:1px solid rgba(30,58,138,0.2);font-size:11px;color:var(--blue);text-align:left;}
+  .submit-btn{width:100%;padding:18px;background:var(--blue);color:var(--cream);font-family:'Montserrat',sans-serif;font-size:11px;font-weight:500;letter-spacing:4px;text-transform:uppercase;border:none;cursor:none;margin-top:8px;transition:all 0.3s;}
+  .submit-btn:hover{background:var(--blue-light);transform:translateY(-1px);}
+  .success-msg{display:none;text-align:center;padding:40px;border:1px solid rgba(30,58,138,0.2);background:var(--blue-dim);}
+  .success-msg.show{display:block;}
+  .success-icon{font-size:40px;margin-bottom:16px;}
+  .success-title{font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--blue);margin-bottom:8px;}
+  .success-text{font-size:13px;color:var(--text-muted);line-height:1.8;}
+  footer{padding:60px 48px 40px;border-top:1px solid rgba(30,58,138,0.1);text-align:center;background:var(--cream);}
+  .footer-logo{margin-bottom:24px;}
+  .footer-logo img{height:60px;width:auto;}
+  .footer-tagline{font-size:11px;letter-spacing:3px;color:var(--text-muted);text-transform:uppercase;margin-bottom:32px;}
+  .footer-social{display:flex;gap:24px;justify-content:center;margin-bottom:40px;}
+  .footer-social a{color:var(--text-muted);text-decoration:none;font-size:10px;letter-spacing:3px;text-transform:uppercase;transition:color 0.3s;}
+  .footer-social a:hover{color:var(--blue);}
+  .footer-copy{font-size:10px;color:rgba(26,39,68,0.3);letter-spacing:1px;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity 0.8s ease,transform 0.8s ease;}
+  .reveal.visible{opacity:1;transform:translateY(0);}
+  ::-webkit-scrollbar{width:4px;}
+  ::-webkit-scrollbar-track{background:var(--cream);}
+  ::-webkit-scrollbar-thumb{background:var(--blue);}
+  @media(max-width:768px){
+    nav{padding:20px 24px;}
+    .nav-links{display:none;}
+    .how-section,.checkout-section{padding:80px 24px;}
+    .catalog-section{padding:80px 24px;}
+    .form-row{grid-template-columns:1fr;}
+    footer{padding:60px 24px 40px;}
+    .cart-drawer{width:100vw;}
+  }
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <div class="nav-logo">
+    <img src="img/logo.png" alt="Aurum Beauty HN">
+  </div>
+  <ul class="nav-links">
+    <li><a href="#catalogo">Catálogo</a></li>
+    <li><a href="#como-funciona">Cómo funciona</a></li>
+  </ul>
+  <button class="cart-btn" onclick="toggleCart()">
+    🛒 Mi pedido <span class="cart-count" id="cartCount">0</span>
+  </button>
+</nav>
+
+<section class="hero">
+  <img src="img/logo.png" alt="Aurum Beauty HN" class="hero-logo">
+  <p class="hero-eyebrow">Curated beauty, just for you.</p>
+  <p class="hero-subtitle">Maquillaje & Skincare · Pedidos mensuales</p>
+  <div class="hero-cta">
+    <a href="#catalogo" class="btn-primary">Ver catálogo</a>
+    <a href="#como-funciona" class="btn-outline">Cómo funciona</a>
+  </div>
+</section>
+
+<section class="how-section" id="como-funciona">
+  <div class="reveal">
+    <p class="section-label">El proceso</p>
+    <h2 class="section-title">Así de simple<br><em>funciona</em></h2>
+  </div>
+  <div class="gold-line"></div>
+  <div class="steps">
+    <div class="step reveal"><div class="step-number">01</div><div class="step-title">Elige</div><p class="step-desc">Selecciona los productos y tonos del catálogo y agrégalos a tu pedido.</p></div>
+    <div class="step reveal"><div class="step-number">02</div><div class="step-title">Confirma</div><p class="step-desc">Llena tus datos y sube el comprobante del 50% de adelanto por transferencia.</p></div>
+    <div class="step reveal"><div class="step-number">03</div><div class="step-title">Enviamos</div><p class="step-desc">Compramos tus productos originales en USA y los enviamos a Honduras. 100% originales, sellados de fábrica. Te avisamos cuando estén en camino.</p></div>
+    <div class="step reveal"><div class="step-number">04</div><div class="step-title">Completa</div><p class="step-desc">Paga el saldo restante cuando tu pedido llegue a Honduras.</p></div>
+    <div class="step reveal"><div class="step-number">05</div><div class="step-title">Recibe</div><p class="step-desc">Tu pedido llega directo a tu puerta, donde estés en Honduras.</p></div>
+  </div>
+</section>
+
+<section class="catalog-section" id="catalogo">
+  <div class="catalog-inner">
+    <div class="catalog-header reveal">
+      <p class="section-label">Productos</p>
+      <h2 class="section-title">Nuestro<br><em>Catálogo</em></h2>
+      <div class="gold-line"></div>
+    </div>
+
+    <!-- CATEGORY TABS -->
+    <div class="cat-tabs reveal">
+      <button class="cat-tab active" onclick="switchCat('bases',this)">Bases</button>
+      <button class="cat-tab" onclick="switchCat('correctores',this)">Correctores</button>
+      <button class="cat-tab" onclick="switchCat('blushes',this)">Blushes</button>
+      <button class="cat-tab" onclick="switchCat('bronzers',this)">Bronzers</button>
+      <button class="cat-tab" onclick="switchCat('iluminadores',this)">Iluminadores</button>
+      <button class="cat-tab" onclick="switchCat('labiales',this)">Labiales</button>
+      <button class="cat-tab" onclick="switchCat('ojos',this)">Ojos</button>
+      <button class="cat-tab" onclick="switchCat('setting',this)">Setting</button>
+      <button class="cat-tab" onclick="switchCat('skincare',this)">Skincare</button>
+      <button class="cat-tab" onclick="switchCat('bbw',this)">Bath & Body Works</button>
+    </div>
+
+    <!-- BASES -->
+    <div class="cat-section active" id="cat-bases">
+      <p class="cat-section-title">✦ <em>Bases</em></p>
+      <div class="catalog-grid">
+
+        <div class="product-card" data-id="b1" data-price="1384"><div class="in-cart-badge">✓</div>
+          <div class="product-img">✨</div>
+          <div class="product-info"><p class="product-brand">Kylie Cosmetics</p>
+            <h3 class="product-name">Skin Tint Blurring Elixir Foundation</h3>
+            <p class="product-desc">Skin tint ligero con efecto blurring. Cobertura buildable, finish natural y luminoso.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-b1"><option value="">— Elige un tono —</option><option>110N</option><option>120N</option><option>130N</option><option>140N</option><option>150W</option><option>210N</option><option>220N</option><option>230W</option><option>310N</option><option>320W</option></select>
+            <div class="product-pricing"><div class="product-price">L1,384 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('b1','Kylie Cosmetics','Skin Tint Blurring Elixir Foundation','✨','tone-b1',1384)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="b2" data-price="1813"><span class="product-badge">50 tonos</span><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌟</div>
+          <div class="product-info"><p class="product-brand">Fenty Beauty</p>
+            <h3 class="product-name">Pro Filt'r Soft Matte Longwear Liquid Foundation</h3>
+            <p class="product-desc">Cobertura media-alta, finish mate suave. 50 tonos para toda piel latina. Larga duración.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-b2"><option value="">— Elige un tono —</option><option>100W</option><option>130N</option><option>185N</option><option>230N</option><option>330W</option><option>385N</option><option>420N</option><option>490N</option></select>
+            <div class="product-pricing"><div class="product-price">L1,813 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('b2','Fenty Beauty','Pro Filt\'r Soft Matte Foundation','🌟','tone-b2',1813)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="b3" data-price="1730"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌿</div>
+          <div class="product-info"><p class="product-brand">Rare Beauty</p>
+            <h3 class="product-name">True to Myself Natural Matte Longwear Foundation</h3>
+            <p class="product-desc">Cobertura media buildable, finish matte natural. Cómoda al tacto y de larga duración.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-b3"><option value="">— Elige un tono —</option><option>100W</option><option>110N</option><option>120C</option><option>200W</option><option>210N</option><option>220C</option><option>300W</option><option>310N</option><option>400W</option><option>420N</option></select>
+            <div class="product-pricing"><div class="product-price">L1,730 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('b3','Rare Beauty','True to Myself Foundation','🌿','tone-b3',1730)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="b4" data-price="1771"><span class="product-badge">Viral TikTok</span><div class="in-cart-badge">✓</div>
+          <div class="product-img">💫</div>
+          <div class="product-info"><p class="product-brand">Fenty Beauty</p>
+            <h3 class="product-name">Eaze Drop Lightweight Blurring Skin Tint</h3>
+            <p class="product-desc">Skin tint con efecto blurring. Súper ligero, finish luminoso y natural. El favorito de TikTok.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-b4"><option value="">— Elige un tono —</option><option>1N</option><option>3N</option><option>5N</option><option>8W</option><option>10N</option><option>12N</option><option>15W</option><option>18N</option><option>20N</option><option>22W</option></select>
+            <div class="product-pricing"><div class="product-price">L1,771 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('b4','Fenty Beauty','Eaze Drop Skin Tint','💫','tone-b4',1771)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="b5" data-price="736"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌸</div>
+          <div class="product-info"><p class="product-brand">NYX Professional Makeup</p>
+            <h3 class="product-name">Make 'Em Wonder 24H Soft Matte Foundation</h3>
+            <p class="product-desc">Base de larga duración con finish matte suave. Cobertura buildable, fórmula ligera y cómoda.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-b5"><option value="">— Elige un tono —</option><option>Ivory</option><option>Porcelain</option><option>Light Beige</option><option>Natural</option><option>Sand</option><option>Medium Beige</option><option>Buff</option><option>Caramel</option><option>Warm Caramel</option><option>Mahogany</option></select>
+            <div class="product-pricing"><div class="product-price">L736 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('b5','NYX Professional Makeup','Make \'Em Wonder Foundation','🌸','tone-b5',736)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="b6" data-price="2101"><span class="product-badge">Lujo</span><div class="in-cart-badge">✓</div>
+          <div class="product-img">👑</div>
+          <div class="product-info"><p class="product-brand">Charlotte Tilbury</p>
+            <h3 class="product-name">Airbrush Flawless Foundation</h3>
+            <p class="product-desc">La base favorita de las celebridades. Finish airbrush de larga duración, cobertura buildable.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-b6"><option value="">— Elige un tono —</option><option>1 Cool</option><option>1 Neutral</option><option>2 Cool</option><option>3 Neutral</option><option>4 Warm</option><option>5 Neutral</option><option>6 Warm</option><option>7 Cool</option><option>8 Neutral</option><option>9 Warm</option></select>
+            <div class="product-pricing"><div class="product-price">L2,101 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('b6','Charlotte Tilbury','Airbrush Flawless Foundation','👑','tone-b6',2101)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="b7" data-price="624"><div class="in-cart-badge">✓</div>
+          <div class="product-img">💧</div>
+          <div class="product-info"><p class="product-brand">Maybelline</p>
+            <h3 class="product-name">Fit Me Matte + Poreless Liquid Foundation</h3>
+            <p class="product-desc">Control de brillo todo el día, finish natural. La base drugstore más vendida de USA.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-b7"><option value="">— Elige un tono —</option><option>105 Natural Ivory</option><option>110 Porcelain</option><option>120 Classic Ivory</option><option>130 Buff Beige</option><option>220 Natural Beige</option><option>230 Natural Buff</option><option>310 Sun Beige</option><option>330 Toffee</option><option>355 Coconut</option><option>370 Espresso</option></select>
+            <div class="product-pricing"><div class="product-price">L624 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('b7','Maybelline','Fit Me Matte + Poreless Foundation','💧','tone-b7',624)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="b8" data-price="778"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌙</div>
+          <div class="product-info"><p class="product-brand">Maybelline</p>
+            <h3 class="product-name">Super Stay Up to 30HR Wear Lumi-Matte Foundation</h3>
+            <p class="product-desc">Hasta 30 horas de duración con acabado lumi-matte. Cobertura buildable y finish radiante mate.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-b8"><option value="">— Elige un tono —</option><option>110 Porcelain</option><option>120 Classic Ivory</option><option>220 Natural Beige</option><option>310 Sun Beige</option><option>330 Toffee</option><option>355 Coconut</option></select>
+            <div class="product-pricing"><div class="product-price">L778 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('b8','Maybelline','Super Stay 30HR Lumi-Matte Foundation','🌙','tone-b8',778)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="b9" data-price="779"><div class="in-cart-badge">✓</div>
+          <div class="product-img">☀️</div>
+          <div class="product-info"><p class="product-brand">NYX Professional Makeup</p>
+            <h3 class="product-name">Buttermelt Glaze Skin Tint SPF 30</h3>
+            <p class="product-desc">Skin tint con SPF 30 y textura mantequilla. Glow natural, hidratación y protección solar en uno.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-b9"><option value="">— Elige un tono —</option><option>Butta Off White</option><option>Do Butta</option><option>Butta Babe</option><option>Butta Peach</option><option>Butta Brown</option></select>
+            <div class="product-pricing"><div class="product-price">L779 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('b9','NYX Professional Makeup','Buttermelt Glaze Skin Tint SPF30','☀️','tone-b9',779)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="b10" data-price="2287"><span class="product-badge">Lujo</span><div class="in-cart-badge">✓</div>
+          <div class="product-img">💎</div>
+          <div class="product-info"><p class="product-brand">Dior</p>
+            <h3 class="product-name">Forever Skin Perfect 24H Foundation Stick</h3>
+            <p class="product-desc">Base en barra para una aplicación perfecta en segundos. Cobertura full, finish natural 24h.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-b10"><option value="">— Elige un tono —</option><option>1N Neutral</option><option>1W Warm</option><option>2N Neutral</option><option>2W Warm</option><option>3N Neutral</option><option>3W Warm</option><option>4N Neutral</option><option>5N Neutral</option></select>
+            <div class="product-pricing"><div class="product-price">L2,287 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('b10','Dior','Forever Skin Perfect Foundation Stick','💎','tone-b10',2287)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="b11" data-price="1466"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌺</div>
+          <div class="product-info"><p class="product-brand">R.E.M Beauty</p>
+            <h3 class="product-name">Sweetener Foundation</h3>
+            <p class="product-desc">Base de cobertura buildable con finish satinado natural. Fórmula ligera y cómoda todo el día.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-b11"><option value="">— Elige un tono —</option><option>Fair 10N</option><option>Light 20N</option><option>Light 25W</option><option>Medium 30N</option><option>Medium 35W</option><option>Tan 40N</option><option>Deep 50N</option></select>
+            <div class="product-pricing"><div class="product-price">L1,466 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('b11','R.E.M Beauty','Sweetener Foundation','🌺','tone-b11',1466)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="b12" data-price="720"><div class="in-cart-badge">✓</div>
+          <div class="product-img">✨</div>
+          <div class="product-info"><p class="product-brand">e.l.f. Cosmetics</p>
+            <h3 class="product-name">Halo Glow Liquid Filter</h3>
+            <p class="product-desc">Dupe del Hollywood Flawless Filter. Acabado luminoso natural, buildable. Un hit viral en 2024.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-b12"><option value="">— Elige un tono —</option><option>1 Fair/Cool</option><option>2 Light/Warm</option><option>3 Light/Medium</option><option>4 Medium/Warm</option><option>5 Medium/Tan</option><option>6 Tan/Deep</option><option>7 Deep/Cool</option></select>
+            <div class="product-pricing"><div class="product-price">L720 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('b12','e.l.f. Cosmetics','Halo Glow Liquid Filter','✨','tone-b12',720)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="b13" data-price="1989"><span class="product-badge">Lujo</span><div class="in-cart-badge">✓</div>
+          <div class="product-img">🪄</div>
+          <div class="product-info"><p class="product-brand">Hourglass</p>
+            <h3 class="product-name">Veil Hydrating Skin Tint</h3>
+            <p class="product-desc">Skin tint hidratante con acabado satinado natural. Cobertura sheer buildable, larga duración.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-b13"><option value="">— Elige un tono —</option><option>1 Porcelain</option><option>3 Ivory</option><option>5 Nude</option><option>7 Sand</option><option>9 Bisque</option><option>11 Shell</option><option>13 Warm Nude</option><option>15 Natural</option></select>
+            <div class="product-pricing"><div class="product-price">L1,989 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('b13','Hourglass','Veil Hydrating Skin Tint','🪄','tone-b13',1989)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="b14" data-price="1240"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌿</div>
+          <div class="product-info"><p class="product-brand">Rare Beauty</p>
+            <h3 class="product-name">Positive Light Tinted Moisturizer Broad Spectrum SPF20</h3>
+            <p class="product-desc">Hidratante tintada con SPF 20. Finish luminoso natural y protección solar. Perfecta para el día a día.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-b14"><option value="">— Elige un tono —</option><option>100W</option><option>110N</option><option>200W</option><option>210N</option><option>300W</option><option>310N</option><option>400W</option><option>420N</option></select>
+            <div class="product-pricing"><div class="product-price">L1,240 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('b14','Rare Beauty','Positive Light Tinted Moisturizer SPF20','🌿','tone-b14',1240)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="b15" data-price="1528"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🥛</div>
+          <div class="product-info"><p class="product-brand">Milk Makeup</p>
+            <h3 class="product-name">Hydro Grip 12-Hour Hydrating Gel Skin Tint</h3>
+            <p class="product-desc">Skin tint en gel hidratante de 12 horas. Finish fresco y natural con grip que dura todo el día.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-b15"><option value="">— Elige un tono —</option><option>Light</option><option>Fair</option><option>Light Medium</option><option>Medium</option><option>Medium Tan</option><option>Tan</option><option>Deep</option></select>
+            <div class="product-pricing"><div class="product-price">L1,528 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('b15','Milk Makeup','Hydro Grip Gel Skin Tint','🥛','tone-b15',1528)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="b16" data-price="1600"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌟</div>
+          <div class="product-info"><p class="product-brand">Huda Beauty</p>
+            <h3 class="product-name">Easy Blur Natural Airbrush Foundation with Niacinamide</h3>
+            <p class="product-desc">Base airbrush con niacinamida. Cobertura buildable, finish difuminado y cuidado de la piel en uno.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-b16"><option value="">— Elige un tono —</option><option>110N Linen</option><option>130G Warm Ivory</option><option>200N Nude</option><option>220G Sand</option><option>310N Beige</option><option>330G Caramel</option><option>420N Cappuccino</option><option>440G Mocha</option></select>
+            <div class="product-pricing"><div class="product-price">L1,600 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('b16','Huda Beauty','Easy Blur Airbrush Foundation','🌟','tone-b16',1600)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="b17" data-price="2031"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🔬</div>
+          <div class="product-info"><p class="product-brand">Haus Labs</p>
+            <h3 class="product-name">Triclone Skin Tech Medium Coverage Foundation</h3>
+            <p class="product-desc">Base con tecnología triclone. Cobertura media buildable, finish segunda piel. Cuida la piel mientras la cubre.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-b17"><option value="">— Elige un tono —</option><option>100W (muy claro, cálido)</option><option>110N (muy claro, neutro)</option><option>200W (claro, cálido)</option><option>210N (claro, neutro)</option><option>300W (medio, cálido)</option><option>310N (medio, neutro)</option><option>400W (medio-oscuro)</option><option>420N (oscuro)</option></select>
+            <div class="product-pricing"><div class="product-price">L2,031 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('b17','Haus Labs','Triclone Skin Tech Foundation','🔬','tone-b17',2031)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- CORRECTORES -->
+    <div class="cat-section" id="cat-correctores">
+      <p class="cat-section-title">✦ <em>Correctores</em></p>
+      <div class="catalog-grid">
+
+        <div class="product-card" data-id="c1" data-price="1552"><span class="product-badge">El mejor</span><div class="in-cart-badge">✓</div>
+          <div class="product-img">⭐</div>
+          <div class="product-info"><p class="product-brand">NARS</p>
+            <h3 class="product-name">Radiant Creamy Concealer</h3>
+            <p class="product-desc">El corrector más premiado del mundo. Cobertura buildable, finish radiante. Cubre ojeras y manchas perfectamente.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-c1"><option value="">— Elige un tono —</option><option>Chantilly (muy claro, rosado)</option><option>Vanilla (claro, neutro)</option><option>Custard (claro, cálido)</option><option>Ginger (medio claro)</option><option>Caramel (medio, cálido)</option><option>Honey (medio, dorado)</option><option>Cafe (oscuro)</option><option>Espresso (muy oscuro)</option></select>
+            <div class="product-pricing"><div class="product-price">L1,552 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('c1','NARS','Radiant Creamy Concealer','⭐','tone-c1',1552)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="c2" data-price="1226"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌙</div>
+          <div class="product-info"><p class="product-brand">Tarte</p>
+            <h3 class="product-name">Shape Tape Concealer</h3>
+            <p class="product-desc">Corrector full coverage, mate y duradero. Cubre todo sin cuartearse. Uno de los más vendidos de USA.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-c2"><option value="">— Elige un tono —</option><option>12B (muy claro, beige)</option><option>16N (claro, neutro)</option><option>20S (claro, arena)</option><option>27H (medio, miel)</option><option>34S (medio, arena)</option><option>42W (medio-oscuro, cálido)</option><option>48H (oscuro, miel)</option><option>53N (muy oscuro)</option></select>
+            <div class="product-pricing"><div class="product-price">L1,226 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('c2','Tarte','Shape Tape Concealer','🌙','tone-c2',1226)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="c3" data-price="1668"><span class="product-badge">Lujo</span><div class="in-cart-badge">✓</div>
+          <div class="product-img">💫</div>
+          <div class="product-info"><p class="product-brand">Hourglass</p>
+            <h3 class="product-name">Vanish Airbrush Concealer</h3>
+            <p class="product-desc">Corrector de larga duración con cobertura buildable y finish airbrush. Fórmula sin parabenos.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-c3"><option value="">— Elige un tono —</option><option>Porcelain</option><option>Ivory</option><option>Warm Ivory</option><option>Sand</option><option>Warm Beige</option><option>Natural</option><option>Warm Natural</option><option>Amber</option><option>Mahogany</option><option>Deep Mahogany</option></select>
+            <div class="product-pricing"><div class="product-price">L1,668 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('c3','Hourglass','Vanish Airbrush Concealer','💫','tone-c3',1668)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="c4" data-price="1552"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌿</div>
+          <div class="product-info"><p class="product-brand">Too Faced</p>
+            <h3 class="product-name">Born This Way Super Coverage Multi-Use Concealer</h3>
+            <p class="product-desc">Cobertura total buildable con finish natural de segunda piel. Fórmula con extracto de coco.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-c4"><option value="">— Elige un tono —</option><option>Porcelain</option><option>Vanilla</option><option>Warm Vanilla</option><option>Sand</option><option>Natural Beige</option><option>Golden</option><option>Tan</option><option>Deep</option><option>Espresso</option></select>
+            <div class="product-pricing"><div class="product-price">L1,552 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('c4','Too Faced','Born This Way Concealer','🌿','tone-c4',1552)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="c5" data-price="427"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌸</div>
+          <div class="product-info"><p class="product-brand">e.l.f. Cosmetics</p>
+            <h3 class="product-name">Hydrating Camo Concealer</h3>
+            <p class="product-desc">Corrector hidratante de alta cobertura con ácido hialurónico. La opción económica que funciona.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-c5"><option value="">— Elige un tono —</option><option>Fair Ivory</option><option>Light Ivory</option><option>Light Beige</option><option>Light Sand</option><option>Medium Beige</option><option>Medium Sand</option><option>Tan</option><option>Rich Mocha</option><option>Deep Mocha</option></select>
+            <div class="product-pricing"><div class="product-price">L427 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('c5','e.l.f. Cosmetics','Hydrating Camo Concealer','🌸','tone-c5',427)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="c6" data-price="1504"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🖤</div>
+          <div class="product-info"><p class="product-brand">NARS</p>
+            <h3 class="product-name">Soft Matte Complete Concealer</h3>
+            <p class="product-desc">Cobertura total, finish matte sedoso. Cubre manchas, ojeras e imperfecciones sin cuartearse.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-c6"><option value="">— Elige un tono —</option><option>Chantilly</option><option>Vanilla</option><option>Custard</option><option>Ginger</option><option>Caramel</option><option>Honey</option><option>Cafe</option><option>Espresso</option></select>
+            <div class="product-pricing"><div class="product-price">L1,504 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('c6','NARS','Soft Matte Complete Concealer','🖤','tone-c6',1504)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="c7" data-price="1317"><div class="in-cart-badge">✓</div>
+          <div class="product-img">✨</div>
+          <div class="product-info"><p class="product-brand">MAC Cosmetics</p>
+            <h3 class="product-name">Studio Radiance 24HR Luminous Lift Concealer</h3>
+            <p class="product-desc">Corrector luminoso de 24 horas. Efecto lifting visible, finish radiante y cobertura buildable.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-c7"><option value="">— Elige un tono —</option><option>W10 (muy claro, cálido)</option><option>N10 (muy claro, neutro)</option><option>W20 (claro, cálido)</option><option>N20 (claro, neutro)</option><option>W30 (medio, cálido)</option><option>N30 (medio, neutro)</option><option>W40 (medio-oscuro)</option><option>N40 (oscuro)</option></select>
+            <div class="product-pricing"><div class="product-price">L1,317 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('c7','MAC Cosmetics','Studio Radiance 24HR Lift Concealer','✨','tone-c7',1317)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="c8" data-price="592"><div class="in-cart-badge">✓</div>
+          <div class="product-img">💧</div>
+          <div class="product-info"><p class="product-brand">NYX Professional Makeup</p>
+            <h3 class="product-name">Bare With Me Hydrating Face & Body Concealer Serum</h3>
+            <p class="product-desc">Corrector sérum hidratante para cara y cuerpo. Fórmula ligera con cannabis sativa. Finish natural.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-c8"><option value="">— Elige un tono —</option><option>Fair</option><option>Light</option><option>Light Medium</option><option>Medium</option><option>Medium Tan</option><option>Tan</option><option>Deep Golden</option><option>Deep Ebony</option></select>
+            <div class="product-pricing"><div class="product-price">L592 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('c8','NYX Professional Makeup','Bare With Me Concealer Serum','💧','tone-c8',592)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="c9" data-price="736"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌊</div>
+          <div class="product-info"><p class="product-brand">L'Oreal</p>
+            <h3 class="product-name">Infallible Full Wear Waterproof Concealer</h3>
+            <p class="product-desc">Corrector resistente al agua de cobertura full. No se corre, no se transfiere, dura todo el día.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-c9"><option value="">— Elige un tono —</option><option>10 Porcelain</option><option>20 Ivory</option><option>25 Linen</option><option>30 Beige</option><option>40 Natural Beige</option><option>50 Honey</option><option>60 Tan</option><option>75 Espresso</option></select>
+            <div class="product-pricing"><div class="product-price">L736 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('c9','L\'Oreal','Infallible Full Wear Waterproof Concealer','🌊','tone-c9',736)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="c10" data-price="1354"><div class="in-cart-badge">✓</div>
+          <div class="product-img">💎</div>
+          <div class="product-info"><p class="product-brand">Natasha Denona</p>
+            <h3 class="product-name">Hy-Glam Concealer</h3>
+            <p class="product-desc">Corrector de alta pigmentación con finish luminoso. Fórmula de larga duración que hidrata y cubre.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-c10"><option value="">— Elige un tono —</option><option>L1 (muy claro)</option><option>L2 (claro)</option><option>L3 (claro-medio)</option><option>M1 (medio)</option><option>M2 (medio cálido)</option><option>T1 (canela)</option><option>D1 (oscuro)</option><option>D2 (muy oscuro)</option></select>
+            <div class="product-pricing"><div class="product-price">L1,354 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('c10','Natasha Denona','Hy-Glam Concealer','💎','tone-c10',1354)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="c11" data-price="1728"><span class="product-badge">Lujo</span><div class="in-cart-badge">✓</div>
+          <div class="product-img">👑</div>
+          <div class="product-info"><p class="product-brand">Dior</p>
+            <h3 class="product-name">Forever Skin Correct Concealer</h3>
+            <p class="product-desc">El corrector de lujo favorito de pasarelas. Cobertura buildable, larga duración y finish impecable.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-c11"><option value="">— Elige un tono —</option><option>0N Neutral</option><option>1N Neutral</option><option>1W Warm</option><option>2N Neutral</option><option>2W Warm</option><option>3N Neutral</option><option>4N Neutral</option><option>5N Neutral</option></select>
+            <div class="product-pricing"><div class="product-price">L1,728 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('c11','Dior','Forever Skin Correct Concealer','👑','tone-c11',1728)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="c12" data-price="772"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌺</div>
+          <div class="product-info"><p class="product-brand">L'Oreal</p>
+            <h3 class="product-name">True Match Radiant Serum Concealer</h3>
+            <p class="product-desc">Corrector sérum con 1% niacinamida. Finish radiante natural, cobertura buildable e hidratación duradera.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-c12"><option value="">— Elige un tono —</option><option>W1-2 Porcelain</option><option>N2-3 Classic Ivory</option><option>W3-4 Natural Ivory</option><option>N4-5 Natural Beige</option><option>W5-6 Sun Beige</option><option>N6-7 Neutral Tan</option><option>W7-8 Caramel</option><option>N8-9 Cappuccino</option></select>
+            <div class="product-pricing"><div class="product-price">L772 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('c12','L\'Oreal','True Match Radiant Serum Concealer','🌺','tone-c12',772)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="c13" data-price="1560"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🎨</div>
+          <div class="product-info"><p class="product-brand">Bobbi Brown</p>
+            <h3 class="product-name">Skin Long-Wear Color Corrector Stick</h3>
+            <p class="product-desc">Corrector de color en barra para neutralizar ojeras, rojeces y manchas. Fórmula de larga duración.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-c13"><option value="">— Elige un tono —</option><option>Bisque (claro, cálido)</option><option>Light Peach (claro, melocotón)</option><option>Light to Medium Peach</option><option>Medium Peach</option><option>Medium to Dark Peach</option><option>Salmon (para ojeras oscuras)</option><option>Peach Bisque</option></select>
+            <div class="product-pricing"><div class="product-price">L1,560 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('c13','Bobbi Brown','Skin Long-Wear Color Corrector Stick','🎨','tone-c13',1560)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="c14" data-price="1392"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌟</div>
+          <div class="product-info"><p class="product-brand">Huda Beauty</p>
+            <h3 class="product-name">#FauxFilter Luminous Matte Concealer</h3>
+            <p class="product-desc">Corrector matte luminoso de cobertura buildable. Finish impecable que difumina imperfecciones sin cuartearse.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-c14"><option value="">— Elige un tono —</option><option>Vanilla Cake (muy claro)</option><option>Shortbread (claro)</option><option>Banana Crepe (claro-medio)</option><option>Caramel Cake (medio)</option><option>Gingerbread (medio-oscuro)</option><option>Chocolate Truffle (oscuro)</option><option>Dark Chocolate (muy oscuro)</option></select>
+            <div class="product-pricing"><div class="product-price">L1,392 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('c14','Huda Beauty','#FauxFilter Luminous Matte Concealer','🌟','tone-c14',1392)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="c15" data-price="992"><div class="in-cart-badge">✓</div>
+          <div class="product-img">💧</div>
+          <div class="product-info"><p class="product-brand">Tower 28</p>
+            <h3 class="product-name">Swipe All Over Hydrating Serum Concealer</h3>
+            <p class="product-desc">Corrector sérum ultraligero e hidratante. Finish natural buildable, fórmula clean beauty sin irritantes.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-c15"><option value="">— Elige un tono —</option><option>1.0 (muy claro, neutro)</option><option>5.0 (claro, cálido)</option><option>10.0 (claro-medio)</option><option>15.0 (medio, neutro)</option><option>20.0 (medio, cálido)</option><option>25.0 (medio-oscuro)</option><option>30.0 (oscuro)</option></select>
+            <div class="product-pricing"><div class="product-price">L992 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('c15','Tower 28','Swipe All Over Hydrating Serum Concealer','💧','tone-c15',992)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="c16" data-price="1269"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🔬</div>
+          <div class="product-info"><p class="product-brand">Haus Labs</p>
+            <h3 class="product-name">Triclone Skin Tech Hydrating + De-Puffing Concealer</h3>
+            <p class="product-desc">Corrector con tecnología triclone, antiinflamatorio y de-puffing. Cubre, hidrata y reduce la inflamación.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-c16"><option value="">— Elige un tono —</option><option>100W (muy claro)</option><option>110N (claro, neutro)</option><option>200W (claro, cálido)</option><option>210N (medio claro)</option><option>300W (medio, cálido)</option><option>310N (medio, neutro)</option><option>400W (oscuro)</option></select>
+            <div class="product-pricing"><div class="product-price">L1,269 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('c16','Haus Labs','Triclone Skin Tech Concealer','🔬','tone-c16',1269)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- BLUSHES -->
+    <div class="cat-section" id="cat-blushes">
+      <p class="cat-section-title">✦ <em>Blushes</em></p>
+      <div class="catalog-grid">
+
+        <div class="product-card" data-id="bl1" data-price="1027"><span class="product-badge">El favorito</span><div class="in-cart-badge">✓</div>
+          <div class="product-img" style="padding:0;overflow:hidden;">
+            <img id="img-bl1" src="img/bl1-happy.jpg" alt="Rare Beauty Soft Pinch Liquid Blush" style="width:100%;height:100%;object-fit:cover;display:block;transition:opacity 0.3s;">
+          </div>
+          <div class="product-info"><p class="product-brand">Rare Beauty</p>
+            <h3 class="product-name">Soft Pinch Liquid Blush</h3>
+            <p class="product-desc">Una gotita dura todo el día. El blush más viral de TikTok, duración hasta 12 horas.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-bl1" onchange="swapBlush1(this.value)">
+              <option value="">— Elige un tono —</option>
+              <option>Happy (cool pink)</option><option>Joy (muted peach)</option>
+              <option>Hope (nude mauve)</option><option>Bliss (nude pink)</option>
+              <option>Encourage (soft neutral pink)</option><option>Grateful (true red)</option>
+            </select>
+            <div class="product-pricing"><div class="product-price">L1,027 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('bl1','Rare Beauty','Soft Pinch Liquid Blush','🌸','tone-bl1',1027)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="bl2" data-price="920"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🎨</div>
+          <div class="product-info"><p class="product-brand">Morphe</p>
+            <h3 class="product-name">Cheek Thrills Multi-Finish Face Trio</h3>
+            <p class="product-desc">Trío de blush, bronzer e iluminador en un solo compacto. Acabados mate, shimmer y glow.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-bl2"><option value="">— Elige un tono —</option><option>Rosy Flush</option><option>Bronzed Babe</option><option>Peachy Keen</option></select>
+            <div class="product-pricing"><div class="product-price">L920 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('bl2','Morphe','Cheek Thrills Multi-Finish Face Trio','🎨','tone-bl2',920)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="bl3" data-price="1168"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🍊</div>
+          <div class="product-info"><p class="product-brand">Benefit Cosmetics</p>
+            <h3 class="product-name">Benetint Liquid Lip & Cheek Stain</h3>
+            <p class="product-desc">La tinta líquida icónica de Benefit. Color natural y duradero en mejillas y labios. Finish flush natural.</p>
+            <span class="no-tone">Tono único: Rose</span>
+            <div class="product-pricing"><div class="product-price">L1,168 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('bl3','Benefit Cosmetics','Benetint Liquid Lip & Cheek Stain','🍊',null,1168)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="bl4" data-price="556"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌺</div>
+          <div class="product-info"><p class="product-brand">NYX Professional Makeup</p>
+            <h3 class="product-name">Buttermelt Pressed Powder Blush</h3>
+            <p class="product-desc">Blush en polvo prensado ultra suave. Fórmula que se funde con la piel para un color natural e intenso.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-bl4"><option value="">— Elige un tono —</option><option>Do Betta (nude rosado)</option><option>Butta Peach (melocotón)</option><option>Berry Tings (berry)</option><option>Doin Rosé (rosado suave)</option><option>Butta Babe (coral)</option></select>
+            <div class="product-pricing"><div class="product-price">L556 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('bl4','NYX Professional Makeup','Buttermelt Pressed Powder Blush','🌺','tone-bl4',556)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="bl5" data-price="1552"><span class="product-badge">Clásico</span><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌷</div>
+          <div class="product-info"><p class="product-brand">NARS</p>
+            <h3 class="product-name">Blush</h3>
+            <p class="product-desc">El blush en polvo más icónico de la industria. Pigmentación intensa, buildable y de larga duración.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-bl5"><option value="">— Elige un tono —</option><option>Orgasm (melocotón dorado)</option><option>Deep Throat (rosado suave)</option><option>Luster (rosado shimmer)</option><option>Torrid (rosado intenso)</option><option>Sin (rosado nude)</option><option>Taos (terracota)</option></select>
+            <div class="product-pricing"><div class="product-price">L1,552 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('bl5','NARS','Blush','🌷','tone-bl5',1552)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="bl6" data-price="427"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🍑</div>
+          <div class="product-info"><p class="product-brand">e.l.f. Cosmetics</p>
+            <h3 class="product-name">Camo Liquid Blush</h3>
+            <p class="product-desc">Blush líquido pigmentado y de larga duración. Fácil de difuminar, finish natural buildable.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-bl6"><option value="">— Elige un tono —</option><option>Pinky Nude (nude rosado)</option><option>Fuego (coral)</option><option>Shy Blush (rosado suave)</option><option>Berry Beautiful (berry)</option><option>Rose Rendezvous (rosado medio)</option></select>
+            <div class="product-pricing"><div class="product-price">L427 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('bl6','e.l.f. Cosmetics','Camo Liquid Blush','🍑','tone-bl6',427)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="bl7" data-price="1096"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌸</div>
+          <div class="product-info"><p class="product-brand">Rare Beauty</p>
+            <h3 class="product-name">Soft Pinch Luminous Powder Blush</h3>
+            <p class="product-desc">Blush en polvo luminoso de la línea más viral. Finish satinado natural, buildable y de larga duración.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-bl7"><option value="">— Elige un tono —</option><option>Happy (cool pink)</option><option>Joy (muted peach)</option><option>Hope (nude mauve)</option><option>Bliss (nude pink)</option><option>Encourage (soft neutral pink)</option><option>Grateful (true red)</option></select>
+            <div class="product-pricing"><div class="product-price">L1,096 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('bl7','Rare Beauty','Soft Pinch Luminous Powder Blush','🌸','tone-bl7',1096)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="bl8" data-price="1504"><div class="in-cart-badge">✓</div>
+          <div class="product-img">💄</div>
+          <div class="product-info"><p class="product-brand">Ilia</p>
+            <h3 class="product-name">Multi-Stick Cream Blush + Highlighter + Lip Tint</h3>
+            <p class="product-desc">3 en 1: blush cremoso, iluminador y tinta de labios. Fórmula clean beauty de larga duración.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-bl8"><option value="">— Elige un tono —</option><option>Tenderly (nude rosado)</option><option>At Last (melocotón dorado)</option><option>Sway (coral)</option><option>On Top (rosado intenso)</option><option>Mystic (berry)</option></select>
+            <div class="product-pricing"><div class="product-price">L1,504 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('bl8','Ilia','Multi-Stick Cream Blush + Highlighter + Lip Tint','💄','tone-bl8',1504)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="bl9" data-price="1096"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌿</div>
+          <div class="product-info"><p class="product-brand">Rare Beauty</p>
+            <h3 class="product-name">Soft Pinch Matte Bouncy Blush</h3>
+            <p class="product-desc">Blush en mousse con textura bouncy y finish matte. Fácil de difuminar, larga duración sin brillo.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-bl9"><option value="">— Elige un tono —</option><option>Happy (cool pink)</option><option>Joy (muted peach)</option><option>Hope (nude mauve)</option><option>Bliss (nude pink)</option><option>Encourage (soft neutral pink)</option><option>Grateful (true red)</option></select>
+            <div class="product-pricing"><div class="product-price">L1,096 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('bl9','Rare Beauty','Soft Pinch Matte Bouncy Blush','🌿','tone-bl9',1096)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="bl10" data-price="1861"><span class="product-badge">Lujo</span><div class="in-cart-badge">✓</div>
+          <div class="product-img">👑</div>
+          <div class="product-info"><p class="product-brand">Charlotte Tilbury</p>
+            <h3 class="product-name">Unreal Lip + Cheek Glow Blush Stick</h3>
+            <p class="product-desc">Blush en barra cremoso para labios y mejillas. Glow natural buildable de larga duración.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-bl10"><option value="">— Elige un tono —</option><option>Peach Honey (melocotón dorado)</option><option>Pink Paradise (rosado medio)</option><option>Berry Kiss (berry)</option><option>Coral Bliss (coral)</option></select>
+            <div class="product-pricing"><div class="product-price">L1,861 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('bl10','Charlotte Tilbury','Unreal Lip + Cheek Glow Blush Stick','👑','tone-bl10',1861)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="bl11" data-price="952"><div class="in-cart-badge">✓</div>
+          <div class="product-img">✨</div>
+          <div class="product-info"><p class="product-brand">Kylie Cosmetics</p>
+            <h3 class="product-name">Hybrid Blush</h3>
+            <p class="product-desc">Blush híbrido que combina polvo y crema en uno. Color buildable y finish natural de larga duración.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-bl11"><option value="">— Elige un tono —</option><option>Barely Blushing (nude rosado)</option><option>Peach Please (melocotón)</option><option>Hot Girl (coral)</option><option>Berry Pop (berry)</option><option>Pretty in Pink (rosado intenso)</option></select>
+            <div class="product-pricing"><div class="product-price">L952 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('bl11','Kylie Cosmetics','Hybrid Blush','✨','tone-bl11',952)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="bl12" data-price="1312"><div class="in-cart-badge">✓</div>
+          <div class="product-img">☁️</div>
+          <div class="product-info"><p class="product-brand">Too Faced</p>
+            <h3 class="product-name">Cloud Crush Blurring Powder Blush</h3>
+            <p class="product-desc">Blush en polvo ultra difuminado con efecto blurring. Textura aérea y finish natural sin exceso.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-bl12"><option value="">— Elige un tono —</option><option>Pinky Promise (rosado suave)</option><option>Peach Beach (melocotón)</option><option>Flush Hour (rosado medio)</option><option>Coral Fixation (coral)</option><option>Berry Steamy (berry)</option></select>
+            <div class="product-pricing"><div class="product-price">L1,312 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('bl12','Too Faced','Cloud Crush Blurring Powder Blush','☁️','tone-bl12',1312)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="bl13" data-price="1056"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🥛</div>
+          <div class="product-info"><p class="product-brand">Milk Makeup</p>
+            <h3 class="product-name">Lip + Cheek Cream Blush Stick and Lip Color</h3>
+            <p class="product-desc">Blush cremoso en barra para labios y mejillas. Fórmula vegana, buildable y de larga duración.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-bl13"><option value="">— Elige un tono —</option><option>Werk (rosado nude)</option><option>Perk (melocotón)</option><option>Swipe (coral)</option><option>Dash (berry)</option><option>Pulse (rosado intenso)</option></select>
+            <div class="product-pricing"><div class="product-price">L1,056 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('bl13','Milk Makeup','Lip + Cheek Cream Blush Stick','🥛','tone-bl13',1056)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="bl14" data-price="784"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌺</div>
+          <div class="product-info"><p class="product-brand">L'Oreal</p>
+            <h3 class="product-name">Infallible 24H Fresa Wear Soft Matte Blush</h3>
+            <p class="product-desc">Blush en polvo matte de 24 horas. Fórmula ligera y buildable para un color natural duradero.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-bl14"><option value="">— Elige un tono —</option><option>Blush Please (rosado claro)</option><option>Nude Blushing (nude rosado)</option><option>Coral Crush (coral)</option><option>Blush Flushed (rosado medio)</option><option>Berry Flush (berry)</option></select>
+            <div class="product-pricing"><div class="product-price">L784 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('bl14','L\'Oreal','Infallible 24H Fresa Wear Soft Matte Blush','🌺','tone-bl14',784)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="bl15" data-price="1168"><div class="in-cart-badge">✓</div>
+          <div class="product-img">💎</div>
+          <div class="product-info"><p class="product-brand">Fenty Beauty</p>
+            <h3 class="product-name">Cheeks Out Freestyle Cream Blush</h3>
+            <p class="product-desc">Blush cremoso de Rihanna. Fórmula suave y buildable, finish natural de larga duración.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-bl15"><option value="">— Elige un tono —</option><option>Petal Poppin (rosado nude)</option><option>Daiquiri Dip (melocotón)</option><option>Sheer Squeeze (coral suave)</option><option>Summertime Wine (berry)</option><option>Hustla Baby (rosado intenso)</option></select>
+            <div class="product-pricing"><div class="product-price">L1,168 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('bl15','Fenty Beauty','Cheeks Out Freestyle Cream Blush','💎','tone-bl15',1168)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="bl16" data-price="1127"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌹</div>
+          <div class="product-info"><p class="product-brand">Rhode</p>
+            <h3 class="product-name">Pocket Blush</h3>
+            <p class="product-desc">El blush cremoso de Hailey Bieber. Fórmula hidratante buildable con finish luminoso natural.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-bl16"><option value="">— Elige un tono —</option><option>Ribbon (rosado nude)</option><option>Cheeky (melocotón rosado)</option><option>Petal (rosado suave)</option><option>Flutter (rosado cálido)</option><option>Piggy (rosado intenso)</option></select>
+            <div class="product-pricing"><div class="product-price">L1,127 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('bl16','Rhode','Pocket Blush','🌹','tone-bl16',1127)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="bl17" data-price="1706"><span class="product-badge">Lujo</span><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌹</div>
+          <div class="product-info"><p class="product-brand">Patrick Ta</p>
+            <h3 class="product-name">Major Headlines Double-Take Crème & Powder Blush Duo</h3>
+            <p class="product-desc">Duo de blush crema y polvo en un solo compacto. El favorito de celebridades para un flush perfecto en dos acabados.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-bl17"><option value="">— Elige un tono —</option><option>She's Radiant (rosado nude)</option><option>She's Blushing (rosado suave)</option><option>She's Cheeky (melocotón)</option><option>She's Sultry (terracota)</option><option>She's Passionate (berry)</option></select>
+            <div class="product-pricing"><div class="product-price">L1,706 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('bl17','Patrick Ta','Major Headlines Double-Take Blush Duo','🌹','tone-bl17',1706)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="bl18" data-price="1061"><div class="in-cart-badge">✓</div>
+          <div class="product-img">✨</div>
+          <div class="product-info"><p class="product-brand">Saie</p>
+            <h3 class="product-name">Dew Blush Liquid Cream Blush</h3>
+            <p class="product-desc">Blush líquido cremoso con finish dewy luminoso. Fórmula clean, buildable y de larga duración.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-bl18"><option value="">— Elige un tono —</option><option>Petal (rosado suave)</option><option>Crush (rosado medio)</option><option>Peach Fuzz (melocotón)</option><option>Coral Pop (coral)</option><option>Berry (berry suave)</option></select>
+            <div class="product-pricing"><div class="product-price">L1,061 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('bl18','Saie','Dew Blush Liquid Cream Blush','✨','tone-bl18',1061)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- BRONZERS -->
+    <div class="cat-section" id="cat-bronzers">
+      <p class="cat-section-title">✦ <em>Bronzers & Contour</em></p>
+      <div class="catalog-grid">
+
+        <div class="product-card" data-id="br1" data-price="1240"><div class="in-cart-badge">✓</div>
+          <div class="product-img">☀️</div>
+          <div class="product-info"><p class="product-brand">Rare Beauty</p>
+            <h3 class="product-name">Warm Wishes Effortless Bronzer Stick</h3>
+            <p class="product-desc">Bronzer en barra cremoso que se difumina como mantequilla. Natural, cálido y buildable.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-br1"><option value="">— Elige un tono —</option><option>Beachy Keen (claro dorado)</option><option>Sun Drenched (medio dorado)</option><option>Good As Gold (medio-oscuro)</option><option>Bronzed Babe (oscuro)</option></select>
+            <div class="product-pricing"><div class="product-price">L1,240 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('br1','Rare Beauty','Warm Wishes Bronzer Stick','☀️','tone-br1',1240)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="br2" data-price="1408"><span class="product-badge">Clásico</span><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌞</div>
+          <div class="product-info"><p class="product-brand">Benefit Cosmetics</p>
+            <h3 class="product-name">Hoola Matte Powder Bronzer</h3>
+            <p class="product-desc">El bronzer en polvo más icónico. Finish mate natural para un bronceado perfecto sin destellos.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-br2"><option value="">— Elige un tono —</option><option>Hoola (original, medio)</option><option>Hoola Lite (más claro)</option><option>Hoola Caramel (más oscuro)</option><option>Hoola Deep (oscuro intenso)</option></select>
+            <div class="product-pricing"><div class="product-price">L1,408 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('br2','Benefit Cosmetics','Hoola Matte Powder Bronzer','🌞','tone-br2',1408)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="br3" data-price="945"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🎨</div>
+          <div class="product-info"><p class="product-brand">Morphe</p>
+            <h3 class="product-name">Cheek Thrills Bronze & Tone Duo</h3>
+            <p class="product-desc">Duo de bronzer y contorno en un compacto. Acabados mate y shimmer para esculpir y bronzear en un paso.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-br3"><option value="">— Elige un tono —</option><option>Light/Medium</option><option>Medium/Tan</option><option>Tan/Deep</option></select>
+            <div class="product-pricing"><div class="product-price">L945 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('br3','Morphe','Cheek Thrills Bronze & Tone Duo','🎨','tone-br3',945)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="br4" data-price="2362"><span class="product-badge">Lujo</span><div class="in-cart-badge">✓</div>
+          <div class="product-img">👑</div>
+          <div class="product-info"><p class="product-brand">Charlotte Tilbury</p>
+            <h3 class="product-name">Airbrush Matte Bronzer</h3>
+            <p class="product-desc">El bronzer de lujo favorito de las celebridades. Finish airbrush mate, pigmentación buildable y duradera.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-br4"><option value="">— Elige un tono —</option><option>1 Fair (muy claro)</option><option>2 Light (claro)</option><option>3 Medium (medio)</option><option>4 Tan (canela)</option><option>5 Deep (oscuro)</option></select>
+            <div class="product-pricing"><div class="product-price">L2,362 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('br4','Charlotte Tilbury','Airbrush Matte Bronzer','👑','tone-br4',2362)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="br5" data-price="542"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🍂</div>
+          <div class="product-info"><p class="product-brand">NYX Professional Makeup</p>
+            <h3 class="product-name">Buttermelt Pressed Powder Natural Finish Bronzer</h3>
+            <p class="product-desc">Bronzer en polvo de textura mantequilla. Ultra pigmentado, fácil de difuminar, finish natural.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-br5"><option value="">— Elige un tono —</option><option>Butta Off White (muy claro)</option><option>Do Butta (claro)</option><option>Butta Babe (medio)</option><option>Butta Peach (medio-oscuro)</option></select>
+            <div class="product-pricing"><div class="product-price">L542 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('br5','NYX Professional Makeup','Buttermelt Natural Finish Bronzer','🍂','tone-br5',542)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="br6" data-price="1420"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🍫</div>
+          <div class="product-info"><p class="product-brand">Too Faced</p>
+            <h3 class="product-name">Chocolate Soleil Melting Bronzing & Sculpting Stick</h3>
+            <p class="product-desc">Bronzer en barra con aroma a chocolate. Se derrite en la piel para un bronceado natural buildable.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-br6"><option value="">— Elige un tono —</option><option>Light/Medium</option><option>Medium</option><option>Medium/Deep</option><option>Deep</option></select>
+            <div class="product-pricing"><div class="product-price">L1,420 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('br6','Too Faced','Chocolate Soleil Bronzing Stick','🍫','tone-br6',1420)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="br7" data-price="427"><div class="in-cart-badge">✓</div>
+          <div class="product-img">💧</div>
+          <div class="product-info"><p class="product-brand">e.l.f. Cosmetics</p>
+            <h3 class="product-name">Camo Liquid Bronzer & Contour</h3>
+            <p class="product-desc">Bronzer y contorno líquido en uno. Fácil de difuminar, acabado natural buildable.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-br7"><option value="">— Elige un tono —</option><option>Light (claro)</option><option>Medium (medio)</option><option>Tan (canela)</option><option>Deep (oscuro)</option></select>
+            <div class="product-pricing"><div class="product-price">L427 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('br7','e.l.f. Cosmetics','Camo Liquid Bronzer & Contour','💧','tone-br7',427)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="br8" data-price="1802"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🏖️</div>
+          <div class="product-info"><p class="product-brand">NARS</p>
+            <h3 class="product-name">Laguna Bronzer Powder Talc-Free</h3>
+            <p class="product-desc">El bronzer en polvo más icónico de NARS. Libre de talco, finish satinado natural buildable.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-br8"><option value="">— Elige un tono —</option><option>Laguna (original, dorado)</option><option>Casino (claro, rosado)</option><option>Mata Hari (medio, bronce)</option><option>Paloma (oscuro, cálido)</option></select>
+            <div class="product-pricing"><div class="product-price">L1,802 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('br8','NARS','Laguna Bronzer Powder','🏖️','tone-br8',1802)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="br9" data-price="1240"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌊</div>
+          <div class="product-info"><p class="product-brand">Rare Beauty</p>
+            <h3 class="product-name">Soft Pinch Liquid Contour</h3>
+            <p class="product-desc">Contorno líquido buildable y fácil de difuminar. Finish natural sin líneas. De la línea más viral.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-br9"><option value="">— Elige un tono —</option><option>Subtle (muy claro)</option><option>Natural (claro-medio)</option><option>Medium (medio)</option><option>Rich (medio-oscuro)</option><option>Deep (oscuro)</option></select>
+            <div class="product-pricing"><div class="product-price">L1,240 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('br9','Rare Beauty','Soft Pinch Liquid Contour','🌊','tone-br9',1240)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="br10" data-price="494"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌿</div>
+          <div class="product-info"><p class="product-brand">e.l.f. Cosmetics</p>
+            <h3 class="product-name">Halo Glow Contour Beauty Wand</h3>
+            <p class="product-desc">Varita de contorno líquido para esculpir fácil y rápido. Finish natural buildable en segundos.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-br10"><option value="">— Elige un tono —</option><option>Light (claro)</option><option>Medium (medio)</option><option>Tan (canela)</option><option>Deep (oscuro)</option></select>
+            <div class="product-pricing"><div class="product-price">L494 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('br10','e.l.f. Cosmetics','Halo Glow Contour Beauty Wand','🌿','tone-br10',494)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="br11" data-price="1312"><div class="in-cart-badge">✓</div>
+          <div class="product-img">⭐</div>
+          <div class="product-info"><p class="product-brand">Merit</p>
+            <h3 class="product-name">Bronzer Balm Sheer Sculpting Bronzer</h3>
+            <p class="product-desc">Bronzer balm de textura satinada y sheer. Finish natural buildable, fórmula clean beauty.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-br11"><option value="">— Elige un tono —</option><option>Light</option><option>Light Medium</option><option>Medium</option><option>Medium Deep</option><option>Deep</option></select>
+            <div class="product-pricing"><div class="product-price">L1,312 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('br11','Merit','Bronzer Balm Sheer Sculpting Bronzer','⭐','tone-br11',1312)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="br12" data-price="1384"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🎭</div>
+          <div class="product-info"><p class="product-brand">Makeup by Mario</p>
+            <h3 class="product-name">SoftSculpt Transforming Skin Enhancer</h3>
+            <p class="product-desc">Bronzer crema buildable de Mario Dedivanovic. Finish satinado natural para esculpir y bronzear.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-br12"><option value="">— Elige un tono —</option><option>Light</option><option>Light Medium</option><option>Medium</option><option>Tan</option><option>Deep</option></select>
+            <div class="product-pricing"><div class="product-price">L1,384 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('br12','Makeup by Mario','SoftSculpt Transforming Skin Enhancer','🎭','tone-br12',1384)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="br13" data-price="1024"><div class="in-cart-badge">✓</div>
+          <div class="product-img">✨</div>
+          <div class="product-info"><p class="product-brand">Lys Beauty</p>
+            <h3 class="product-name">No Limits Créame Bronzer and Contour Stick</h3>
+            <p class="product-desc">Bronzer y contorno en barra cremosa de larga duración. Finish natural buildable, fórmula inclusiva.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-br13"><option value="">— Elige un tono —</option><option>Light</option><option>Light Medium</option><option>Medium</option><option>Tan</option><option>Deep</option></select>
+            <div class="product-pricing"><div class="product-price">L1,024 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('br13','Lys Beauty','No Limits Créame Bronzer and Contour Stick','✨','tone-br13',1024)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="br14" data-price="933"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌹</div>
+          <div class="product-info"><p class="product-brand">Rhode</p>
+            <h3 class="product-name">Pocket Bronze</h3>
+            <p class="product-desc">Bronzer cremoso de Hailey Bieber. Fórmula buildable con finish luminoso natural para un bronceado de ensueño.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-br14"><option value="">— Elige un tono —</option><option>Breezy (claro dorado)</option><option>Sunlit (medio dorado)</option><option>Bronzed (medio-oscuro)</option></select>
+            <div class="product-pricing"><div class="product-price">L933 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('br14','Rhode','Pocket Bronze','🌹','tone-br14',933)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ILUMINADORES -->
+    <div class="cat-section" id="cat-iluminadores">
+      <p class="cat-section-title">✦ <em>Iluminadores</em></p>
+      <div class="catalog-grid">
+
+        <div class="product-card" data-id="il1" data-price="1822"><span class="product-badge">Viral</span><div class="in-cart-badge">✓</div>
+          <div class="product-img">💫</div>
+          <div class="product-info"><p class="product-brand">Fenty Beauty</p>
+            <h3 class="product-name">Diamond Bomb All-Over Diamond Veil</h3>
+            <p class="product-desc">El iluminador más viral de Fenty. Polvo de diamante que da un glow etéreo en cara y cuerpo.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-il1"><option value="">— Elige un tono —</option><option>How Many Carats? (champagne dorado)</option><option>Ros-é Bling (rosado)</option><option>Ice Bling (plateado)</option><option>Baby Boo Bling (nude shimmer)</option></select>
+            <div class="product-pricing"><div class="product-price">L1,822 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('il1','Fenty Beauty','Diamond Bomb All-Over Diamond Veil','💫','tone-il1',1822)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="il2" data-price="1131"><div class="in-cart-badge">✓</div>
+          <div class="product-img">✨</div>
+          <div class="product-info"><p class="product-brand">Rare Beauty</p>
+            <h3 class="product-name">Positive Light Silky Touch Highlighter</h3>
+            <p class="product-desc">Iluminador en polvo sedoso. Glow natural y sutil buildable para un finish intenso o natural.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-il2"><option value="">— Elige un tono —</option><option>Mesmerize (champagne dorado)</option><option>Flaunt (rosado dorado)</option><option>Transcend (bronce dorado)</option><option>Enlighten (nude shimmer)</option></select>
+            <div class="product-pricing"><div class="product-price">L1,131 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('il2','Rare Beauty','Positive Light Silky Touch Highlighter','✨','tone-il2',1131)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="il3" data-price="1131"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌟</div>
+          <div class="product-info"><p class="product-brand">Rare Beauty</p>
+            <h3 class="product-name">Positive Light Liquid Luminizer</h3>
+            <p class="product-desc">Iluminador líquido para mezclar con base o usar solo. Glow natural buildable para cara y cuerpo.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-il3"><option value="">— Elige un tono —</option><option>Mesmerize (champagne dorado)</option><option>Flaunt (rosado dorado)</option><option>Transcend (bronce dorado)</option><option>Enlighten (nude shimmer)</option></select>
+            <div class="product-pricing"><div class="product-price">L1,131 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('il3','Rare Beauty','Positive Light Liquid Luminizer','🌟','tone-il3',1131)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="il4" data-price="1802"><span class="product-badge">Lujo</span><div class="in-cart-badge">✓</div>
+          <div class="product-img">👑</div>
+          <div class="product-info"><p class="product-brand">Charlotte Tilbury</p>
+            <h3 class="product-name">Beauty Highlighter Wand</h3>
+            <p class="product-desc">La varita de iluminador más deseada. Glow lujoso y natural con un solo desliz. Favorita de celebrities.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-il4"><option value="">— Elige un tono —</option><option>Gold (dorado champagne)</option><option>Rose Gold (rosado dorado)</option><option>Moonlight (plateado)</option></select>
+            <div class="product-pricing"><div class="product-price">L1,802 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('il4','Charlotte Tilbury','Beauty Highlighter Wand','👑','tone-il4',1802)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="il5" data-price="576"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌈</div>
+          <div class="product-info"><p class="product-brand">NYX Professional Makeup</p>
+            <h3 class="product-name">Buttermelt Highlight</h3>
+            <p class="product-desc">Iluminador en polvo de textura mantequilla. Glow buildable y duradero con pigmentación intensa.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-il5"><option value="">— Elige un tono —</option><option>Champagne Campaign (dorado)</option><option>Rose Quartz (rosado)</option><option>Moon (plateado)</option><option>Peach Please (melocotón)</option></select>
+            <div class="product-pricing"><div class="product-price">L576 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('il5','NYX Professional Makeup','Buttermelt Highlight','🌈','tone-il5',576)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="il6" data-price="1512"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🍪</div>
+          <div class="product-info"><p class="product-brand">Benefit Cosmetics</p>
+            <h3 class="product-name">Cookie Golden Pearl Powder Highlighter Beauty Wand</h3>
+            <p class="product-desc">Iluminador en varita con perlas doradas. Glow luminoso y natural buildable de larga duración.</p>
+            <span class="no-tone">Tono único: Golden Pearl</span>
+            <div class="product-pricing"><div class="product-price">L1,512 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('il6','Benefit Cosmetics','Cookie Golden Pearl Highlighter Wand','🍪',null,1512)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="il7" data-price="494"><div class="in-cart-badge">✓</div>
+          <div class="product-img">💛</div>
+          <div class="product-info"><p class="product-brand">e.l.f. Cosmetics</p>
+            <h3 class="product-name">Halo Glow Highlight Beauty Wand</h3>
+            <p class="product-desc">Varita de iluminador líquido fácil de aplicar. Glow natural en segundos. La versión económica del wand viral.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-il7"><option value="">— Elige un tono —</option><option>Champagne Campaign (dorado)</option><option>Rose Quartz (rosado)</option><option>Moon (plateado)</option><option>Peach Please (melocotón)</option></select>
+            <div class="product-pricing"><div class="product-price">L494 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('il7','e.l.f. Cosmetics','Halo Glow Highlight Beauty Wand','💛','tone-il7',494)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="il8" data-price="2659"><span class="product-badge">Lujo</span><div class="in-cart-badge">✓</div>
+          <div class="product-img">💎</div>
+          <div class="product-info"><p class="product-brand">Hourglass</p>
+            <h3 class="product-name">Ambient Lighting Palette Volume II</h3>
+            <p class="product-desc">Paleta de iluminadores de Hourglass. Los polvos más lujosos para un glow de película en múltiples acabados.</p>
+            <span class="no-tone">Paleta única — 6 iluminadores</span>
+            <div class="product-pricing"><div class="product-price">L2,659 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('il8','Hourglass','Ambient Lighting Palette Volume II','💎',null,2659)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="il9" data-price="2031"><span class="product-badge">Lujo</span><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌸</div>
+          <div class="product-info"><p class="product-brand">Dior</p>
+            <h3 class="product-name">Forever Glow Luminizer</h3>
+            <p class="product-desc">Iluminador en polvo de Dior. Glow lujoso y sofisticado para un acabado de alta costura.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-il9"><option value="">— Elige un tono —</option><option>Universal (dorado champagne)</option><option>Pink (rosado nacarado)</option><option>Gold (dorado intenso)</option></select>
+            <div class="product-pricing"><div class="product-price">L2,031 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('il9','Dior','Forever Glow Luminizer','🌸','tone-il9',2031)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="il10" data-price="1851"><span class="product-badge">Lujo</span><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌙</div>
+          <div class="product-info"><p class="product-brand">Dior</p>
+            <h3 class="product-name">Forever Glow Maximizer Longwear Liquid Highlighter</h3>
+            <p class="product-desc">Iluminador líquido de larga duración. Mezcla con tu base o úsalo solo para un glow intenso y duradero.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-il10"><option value="">— Elige un tono —</option><option>Pink (rosado nacarado)</option><option>Gold (dorado)</option><option>Rose Gold (rosado dorado)</option></select>
+            <div class="product-pricing"><div class="product-price">L1,851 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('il10','Dior','Forever Glow Maximizer Liquid Highlighter','🌙','tone-il10',1851)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="il11" data-price="2103"><span class="product-badge">Lujo</span><div class="in-cart-badge">✓</div>
+          <div class="product-img">🎆</div>
+          <div class="product-info"><p class="product-brand">Dior</p>
+            <h3 class="product-name">Backstage Glow Maximizer Face Palette</h3>
+            <p class="product-desc">Paleta de iluminadores Dior Backstage. Glow profesional en múltiples acabados para cara y cuerpo.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-il11"><option value="">— Elige un tono —</option><option>001 Universal (dorado champagne)</option><option>002 Pink (rosado)</option><option>003 Gold (dorado intenso)</option></select>
+            <div class="product-pricing"><div class="product-price">L2,103 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('il11','Dior','Backstage Glow Maximizer Face Palette','🎆','tone-il11',2103)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- LABIALES -->
+    <div class="cat-section" id="cat-labiales">
+      <p class="cat-section-title">✦ <em>Labiales</em></p>
+      <div class="catalog-grid">
+
+        <div class="product-card" data-id="l1" data-price="1160"><div class="in-cart-badge">✓</div>
+          <div class="product-img">💄</div>
+          <div class="product-info"><p class="product-brand">Clinique</p>
+            <h3 class="product-name">Almost Lipstick</h3>
+            <p class="product-desc">El labial sheer icónico de Clinique. Color sutil buildable con acabado brillante y sensación hidratante.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-l1"><option value="">— Elige un tono —</option><option>Black Honey (nude rosado oscuro)</option><option>Pink Honey (nude rosado claro)</option></select>
+            <div class="product-pricing"><div class="product-price">L1,160 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('l1','Clinique','Almost Lipstick','💄','tone-l1',1160)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="l2" data-price="560"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🍒</div>
+          <div class="product-info"><p class="product-brand">NYX Professional Makeup</p>
+            <h3 class="product-name">Fat Matte Lipstick</h3>
+            <p class="product-desc">Labial matte cremoso de larga duración. Finish aterciopelado intenso buildable con fácil aplicación.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-l2"><option value="">— Elige un tono —</option><option>Nude Vibe (nude rosado)</option><option>Blushing Babe (rosado claro)</option><option>Sway (mauve)</option><option>Frisky (berry nude)</option><option>Shout Out (rosado intenso)</option><option>Rebel (rojo oscuro)</option></select>
+            <div class="product-pricing"><div class="product-price">L560 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('l2','NYX Professional Makeup','Fat Matte Lipstick','🍒','tone-l2',560)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="l3" data-price="957"><div class="in-cart-badge">✓</div>
+          <div class="product-img">✨</div>
+          <div class="product-info"><p class="product-brand">Fenty Beauty</p>
+            <h3 class="product-name">Gloss Bomb Universal Lip Luminizer</h3>
+            <p class="product-desc">El gloss de Rihanna. Voluminizador y súper brillante. Universal, queda bien en todos los tonos de piel.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-l3"><option value="">— Elige un tono —</option><option>Fenty Glow (nude rosado)</option><option>Hot Chocolit (chocolate rosado)</option><option>Glass Slipper (transparente shimmer)</option><option>Sweet Mouth (rosado medio)</option><option>Fu$$y (rosado intenso)</option></select>
+            <div class="product-pricing"><div class="product-price">L957 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('l3','Fenty Beauty','Gloss Bomb Universal Lip Luminizer','✨','tone-l3',957)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="l4" data-price="460"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌿</div>
+          <div class="product-info"><p class="product-brand">e.l.f. Cosmetics</p>
+            <h3 class="product-name">Glow Reviver Lip Oil</h3>
+            <p class="product-desc">Aceite labial hidratante con brillo sutil. Nutritivo y cómodo. El lip oil económico que todo el mundo ama.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-l4"><option value="">— Elige un tono —</option><option>Enchanted (nude shimmer)</option><option>Rose Wishes (rosado claro)</option><option>Peachy Keen (melocotón)</option><option>Berry Bliss (berry)</option><option>Clear (transparente)</option></select>
+            <div class="product-pricing"><div class="product-price">L460 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('l4','e.l.f. Cosmetics','Glow Reviver Lip Oil','🌿','tone-l4',460)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="l5" data-price="460"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🍯</div>
+          <div class="product-info"><p class="product-brand">e.l.f. Cosmetics</p>
+            <h3 class="product-name">Glow Reviver Melting Lip Balm</h3>
+            <p class="product-desc">Bálsamo labial derretido ultra hidratante. Tinte de color sutil y acabado brillante para labios suaves.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-l5"><option value="">— Elige un tono —</option><option>Undressed (nude claro)</option><option>Spellbound (rosado nude)</option><option>Sweet Tooth (rosado suave)</option><option>Berry Bad (berry)</option></select>
+            <div class="product-pricing"><div class="product-price">L460 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('l5','e.l.f. Cosmetics','Glow Reviver Melting Lip Balm','🍯','tone-l5',460)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="l6" data-price="1131"><div class="in-cart-badge">✓</div>
+          <div class="product-img">💋</div>
+          <div class="product-info"><p class="product-brand">Fenty Beauty</p>
+            <h3 class="product-name">Gloss Bomb Stix High-Shine Gloss Stick</h3>
+            <p class="product-desc">Gloss en barra de aplicación fácil y precisa. Alto brillo, color buildable y acabado jugoso sin pegajosidad.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-l6"><option value="">— Elige un tono —</option><option>Fenty Glow (nude rosado)</option><option>Hot Chocolit (chocolate rosado)</option><option>Glass Slipper (transparente shimmer)</option><option>Sweet Mouth (rosado medio)</option></select>
+            <div class="product-pricing"><div class="product-price">L1,131 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('l6','Fenty Beauty','Gloss Bomb Stix High-Shine Gloss Stick','💋','tone-l6',1131)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="l7" data-price="592"><div class="in-cart-badge">✓</div>
+          <div class="product-img">💧</div>
+          <div class="product-info"><p class="product-brand">NYX Professional Makeup</p>
+            <h3 class="product-name">Lip IV Hydrating Gloss Stain</h3>
+            <p class="product-desc">Tinta gloss hidratante de larga duración. Color buildable, finish brillante y cómodo todo el día.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-l7"><option value="">— Elige un tono —</option><option>Thirsty (nude rosado)</option><option>Revived (rosado suave)</option><option>Quenched (rosado medio)</option><option>Soothed (berry)</option><option>Hydrated (rojo)</option></select>
+            <div class="product-pricing"><div class="product-price">L592 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('l7','NYX Professional Makeup','Lip IV Hydrating Gloss Stain','💧','tone-l7',592)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="l8" data-price="916"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌟</div>
+          <div class="product-info"><p class="product-brand">Kylie Cosmetics</p>
+            <h3 class="product-name">Lip Butter</h3>
+            <p class="product-desc">Mantequilla labial de Kylie. Hidratante, suave y con color buildable. Finish glassy y cómodo todo el día.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-l8"><option value="">— Elige un tono —</option><option>Bare (nude claro)</option><option>Starfish (nude rosado)</option><option>Birthday (rosado suave)</option><option>Bubblegum (rosado medio)</option><option>Cherry (rojo cereza)</option></select>
+            <div class="product-pricing"><div class="product-price">L916 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('l8','Kylie Cosmetics','Lip Butter','🌟','tone-l8',916)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="l9" data-price="1564"><span class="product-badge">Lujo</span><div class="in-cart-badge">✓</div>
+          <div class="product-img">👑</div>
+          <div class="product-info"><p class="product-brand">Charlotte Tilbury</p>
+            <h3 class="product-name">Matte Revolution Hydrating Lipstick</h3>
+            <p class="product-desc">El labial matte más cómodo del mundo. Hidratante, larga duración y pigmentación intensa.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-l9"><option value="">— Elige un tono —</option><option>Pillow Talk (nude rosado)</option><option>Amazing Grace (nude beige)</option><option>Very Victoria (nude cálido)</option><option>Bond Girl (rosado intenso)</option><option>Red Carpet Red (rojo clásico)</option></select>
+            <div class="product-pricing"><div class="product-price">L1,564 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('l9','Charlotte Tilbury','Matte Revolution Hydrating Lipstick','👑','tone-l9',1564)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="l10" data-price="960"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌸</div>
+          <div class="product-info"><p class="product-brand">Rare Beauty</p>
+            <h3 class="product-name">Soft Pinch Tinted Lip Oil</h3>
+            <p class="product-desc">Aceite labial de la línea más viral de Rare Beauty. Color buildable, hidratación intensa y brillo natural.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-l10"><option value="">— Elige un tono —</option><option>Nearly Warm (nude cálido)</option><option>Nearly Sweet (rosado nude)</option><option>Nearly Rosy (rosado medio)</option><option>Nearly Berry (berry suave)</option></select>
+            <div class="product-pricing"><div class="product-price">L960 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('l10','Rare Beauty','Soft Pinch Tinted Lip Oil','🌸','tone-l10',960)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="l11" data-price="1708"><span class="product-badge">Lujo</span><div class="in-cart-badge">✓</div>
+          <div class="product-img">💎</div>
+          <div class="product-info"><p class="product-brand">Dior</p>
+            <h3 class="product-name">Addict Lip Maximizer Gloss</h3>
+            <p class="product-desc">El gloss de lujo que voluminiza instantáneamente. Hidratante, plumping y con un brillo irresistible.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-l11"><option value="">— Elige un tono —</option><option>000 Universal Clear</option><option>001 Pink</option><option>004 Coral</option><option>006 Berry</option><option>010 Holo Pink</option><option>012 Rosewood</option><option>015 Cherry</option></select>
+            <div class="product-pricing"><div class="product-price">L1,708 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('l11','Dior','Addict Lip Maximizer Gloss','💎','tone-l11',1708)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="l12" data-price="494"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🛢️</div>
+          <div class="product-info"><p class="product-brand">NYX Professional Makeup</p>
+            <h3 class="product-name">Fat Oil Lip Drip</h3>
+            <p class="product-desc">Aceite labial glossy y nutritivo. Finish jugoso de alto brillo con color sutil buildable. El lip oil viral de NYX.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-l12"><option value="">— Elige un tono —</option><option>Totally Sheer (transparente)</option><option>Missed Call (rosado nude)</option><option>Subtweet (rosado suave)</option><option>Scrollin' (rosado medio)</option><option>Link In Bio (berry)</option></select>
+            <div class="product-pricing"><div class="product-price">L494 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('l12','NYX Professional Makeup','Fat Oil Lip Drip','🛢️','tone-l12',494)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="l13" data-price="611"><div class="in-cart-badge">✓</div>
+          <div class="product-img">💄</div>
+          <div class="product-info"><p class="product-brand">Maybelline</p>
+            <h3 class="product-name">Super Stay Matte Ink Liquid Lipstick</h3>
+            <p class="product-desc">Labial líquido matte de larga duración. Hasta 16 horas sin retoque, transfer-proof y sin resecar.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-l13"><option value="">— Elige un tono —</option><option>Seeker (nude rosado)</option><option>Dreamer (rosado mauve)</option><option>Lover (rosado medio)</option><option>Ruler (rojo clásico)</option><option>Pioneer (terracota)</option></select>
+            <div class="product-pricing"><div class="product-price">L611 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('l13','Maybelline','Super Stay Matte Ink Liquid Lipstick','💄','tone-l13',611)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="l14" data-price="907"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌹</div>
+          <div class="product-info"><p class="product-brand">Rhode</p>
+            <h3 class="product-name">Peptide Lip Tint Nourishing Glaze</h3>
+            <p class="product-desc">Tinta labial con péptidos de Hailey Bieber. Hidratante, nutritiva y con color sutil buildable.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-l14"><option value="">— Elige un tono —</option><option>Ribbon (rosado nude)</option><option>Petal (rosado suave)</option><option>Strawberry Glaze (rosado medio)</option><option>Toasted Teddy (nude cálido)</option><option>Espresso (marrón oscuro)</option></select>
+            <div class="product-pricing"><div class="product-price">L907 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('l14','Rhode','Peptide Lip Tint Nourishing Glaze','🌹','tone-l14',907)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="l15" data-price="992"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🖊️</div>
+          <div class="product-info"><p class="product-brand">Rhode</p>
+            <h3 class="product-name">Peptide Lip Shape Contouring Lip Liner</h3>
+            <p class="product-desc">Lip liner con péptidos para definir y contornear. Fórmula cremosa hidratante, larga duración.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-l15"><option value="">— Elige un tono —</option><option>Petal (rosado suave)</option><option>Ribbon (rosado nude)</option><option>Toasted Teddy (nude cálido)</option><option>Strawberry Glaze (rosado medio)</option></select>
+            <div class="product-pricing"><div class="product-price">L992 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('l15','Rhode','Peptide Lip Shape Lip Liner','🖊️','tone-l15',992)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- OJOS -->
+    <div class="cat-section" id="cat-ojos">
+      <p class="cat-section-title">✦ <em>Ojos</em></p>
+      <div class="catalog-grid">
+
+        <div class="product-card" data-id="o1" data-price="1280"><div class="in-cart-badge">✓</div>
+          <div class="product-img">✏️</div>
+          <div class="product-info"><p class="product-brand">Benefit Cosmetics</p>
+            <h3 class="product-name">Gimme Brow+ Tinted Volumizing Eyebrow Gel</h3>
+            <p class="product-desc">Gel de cejas tintado que rellena, define y fija. Resultado natural y de larga duración.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-o1"><option value="">— Elige un tono —</option><option>1 (rubio muy claro)</option><option>2 (rubio claro)</option><option>3 (castaño claro)</option><option>4 (castaño medio)</option><option>5 (castaño oscuro)</option><option>6 (negro-marrón)</option></select>
+            <div class="product-pricing"><div class="product-price">L1,280 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('o1','Benefit Cosmetics','Gimme Brow+ Volumizing Eyebrow Gel','✏️','tone-o1',1280)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="o2" data-price="592"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🖊️</div>
+          <div class="product-info"><p class="product-brand">NYX Professional Makeup</p>
+            <h3 class="product-name">Micro Brow Pencil Eyebrow Pencil</h3>
+            <p class="product-desc">Lápiz de ceja ultrafino para rellenar pelo a pelo. Fórmula duradera, resistente al agua.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-o2"><option value="">— Elige un tono —</option><option>Blonde (rubio)</option><option>Taupe (castaño claro)</option><option>Soft Brown (castaño suave)</option><option>Medium Brown (castaño medio)</option><option>Brunette (castaño oscuro)</option><option>Espresso (negro-marrón)</option><option>Black (negro)</option></select>
+            <div class="product-pricing"><div class="product-price">L592 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('o2','NYX Professional Makeup','Micro Brow Pencil','🖊️','tone-o2',592)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="o3" data-price="664"><div class="in-cart-badge">✓</div>
+          <div class="product-img">👁️</div>
+          <div class="product-info"><p class="product-brand">Maybelline</p>
+            <h3 class="product-name">Lash Sensational Sky High Mascara</h3>
+            <p class="product-desc">La máscara más viral de los últimos años. Alarga y define sin apelmazar. Resistente al agua.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-o3"><option value="">— Elige un tono —</option><option>Blackest Black</option><option>Brownish Black</option><option>Cosmic Black (con glitter)</option></select>
+            <div class="product-pricing"><div class="product-price">L664 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('o3','Maybelline','Lash Sensational Sky High Mascara','👁️','tone-o3',664)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="o4" data-price="520"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🖤</div>
+          <div class="product-info"><p class="product-brand">NYX Professional Makeup</p>
+            <h3 class="product-name">Epic Ink Waterproof Liquid Eyeliner</h3>
+            <p class="product-desc">Liner líquido de tinta negra intensa. Punta súper fina para un delineado perfecto y resistente al agua.</p>
+            <span class="no-tone">Tono único: Negro intenso</span>
+            <div class="product-pricing"><div class="product-price">L520 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('o4','NYX Professional Makeup','Epic Ink Waterproof Liquid Eyeliner','🖤',null,520)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="o5" data-price="1280"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌿</div>
+          <div class="product-info"><p class="product-brand">Benefit Cosmetics</p>
+            <h3 class="product-name">24hr Brow Setter Clear Brow Gel with Lamination Effect</h3>
+            <p class="product-desc">Gel de cejas fijador transparente de 24 horas. Da efecto laminado natural sin ingredientes dañinos.</p>
+            <span class="no-tone">Tono único: Transparente</span>
+            <div class="product-pricing"><div class="product-price">L1,280 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('o5','Benefit Cosmetics','24hr Brow Setter Clear Brow Gel','🌿',null,1280)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="o6" data-price="660"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🔭</div>
+          <div class="product-info"><p class="product-brand">L'Oréal</p>
+            <h3 class="product-name">Telescopic Original Washable Waterproof Mascara</h3>
+            <p class="product-desc">Máscara telescópica para pestañas ultra largas. Resistente al agua, fácil de retirar. Efecto extensión.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-o6"><option value="">— Elige un tono —</option><option>Black</option><option>Blackest Black</option><option>Carbon Black</option></select>
+            <div class="product-pricing"><div class="product-price">L660 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('o6','L\'Oréal','Telescopic Original Waterproof Mascara','🔭','tone-o6',660)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="o7" data-price="800"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🎨</div>
+          <div class="product-info"><p class="product-brand">Morphe</p>
+            <h3 class="product-name">ChromaPlus 6-Pan Eyeshadow Palette</h3>
+            <p class="product-desc">Paleta de 6 sombras en acabados variados. Pigmentación intensa y fácil de difuminar.</p>
+            <span class="tone-label">Selecciona paleta</span>
+            <select class="tone-select" id="tone-o7"><option value="">— Elige una paleta —</option><option>The Golden Hour (dorados)</option><option>The Rose Garden (rosados)</option><option>The Smoky Eye (ahumados)</option><option>The Nude Edit (nude)</option></select>
+            <div class="product-pricing"><div class="product-price">L800 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('o7','Morphe','ChromaPlus 6-Pan Eyeshadow Palette','🎨','tone-o7',800)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="o8" data-price="1242"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌿</div>
+          <div class="product-info"><p class="product-brand">Ilia</p>
+            <h3 class="product-name">Limitless Lash Lengthening Mascara</h3>
+            <p class="product-desc">Máscara clean beauty que alarga y define. Fórmula vegana con aceite de argán. Efecto extensión natural.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-o8"><option value="">— Elige un tono —</option><option>After Midnight (negro intenso)</option><option>Brownout (marrón oscuro)</option></select>
+            <div class="product-pricing"><div class="product-price">L1,242 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('o8','Ilia','Limitless Lash Lengthening Mascara','🌿','tone-o8',1242)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="o9" data-price="1280"><span class="product-badge">Lujo</span><div class="in-cart-badge">✓</div>
+          <div class="product-img">👑</div>
+          <div class="product-info"><p class="product-brand">Lancôme</p>
+            <h3 class="product-name">Lash Idole Lash-Lifting Voluminizing Mascara</h3>
+            <p class="product-desc">La máscara de lujo de Lancôme. Efecto lash-lift, volumen intenso y curvado. Resistente al agua.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-o9"><option value="">— Elige un tono —</option><option>01 Glossy Black</option><option>02 French Chocolate</option></select>
+            <div class="product-pricing"><div class="product-price">L1,280 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('o9','Lancôme','Lash Idole Lash-Lifting Mascara','👑','tone-o9',1280)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="o10" data-price="592"><div class="in-cart-badge">✓</div>
+          <div class="product-img">💪</div>
+          <div class="product-info"><p class="product-brand">Maybelline</p>
+            <h3 class="product-name">Super Lock Brow Glue Waterproof Eyebrow Gel</h3>
+            <p class="product-desc">Gel de cejas ultra fijador resistente al agua. Efecto laminado de larga duración todo el día.</p>
+            <span class="no-tone">Tono único: Transparente</span>
+            <div class="product-pricing"><div class="product-price">L592 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('o10','Maybelline','Super Lock Brow Glue Waterproof Gel','💪',null,592)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="o11" data-price="1466"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌑</div>
+          <div class="product-info"><p class="product-brand">Colour Pop</p>
+            <h3 class="product-name">Stone Cold Eyeshadow Palette</h3>
+            <p class="product-desc">Paleta de sombras en tonos fríos y ahumados. Fórmula pigmentada y fácil de difuminar.</p>
+            <span class="no-tone">Paleta única — 12 tonos</span>
+            <div class="product-pricing"><div class="product-price">L1,466 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('o11','Colour Pop','Stone Cold Eyeshadow Palette','🌑',null,1466)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="o12" data-price="683"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌸</div>
+          <div class="product-info"><p class="product-brand">Colour Pop</p>
+            <h3 class="product-name">Nude Mood Pressed Powder Palette</h3>
+            <p class="product-desc">Paleta de sombras en tonos nude para looks naturales o definidos. Fórmula suave y pigmentada.</p>
+            <span class="no-tone">Paleta única — 12 tonos nude</span>
+            <div class="product-pricing"><div class="product-price">L683 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('o12','Colour Pop','Nude Mood Pressed Powder Palette','🌸',null,683)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="o13" data-price="2054"><span class="product-badge">Top pick</span><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌺</div>
+          <div class="product-info"><p class="product-brand">Tarte</p>
+            <h3 class="product-name">Tartelette In Bloom Amazonian Clay Palette</h3>
+            <p class="product-desc">Paleta con arcilla amazónica para duración increíble. 12 tonos entre mates y shimmer. Un clásico de culto.</p>
+            <span class="no-tone">Paleta única — 12 tonos</span>
+            <div class="product-pricing"><div class="product-price">L2,054 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('o13','Tarte','Tartelette In Bloom Clay Palette','🌺',null,2054)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="o14" data-price="1056"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌙</div>
+          <div class="product-info"><p class="product-brand">Colour Pop</p>
+            <h3 class="product-name">After Hours Eyeshadow Palette</h3>
+            <p class="product-desc">Paleta de sombras para looks nocturnos y dramáticos. Tonos intensos en acabados mate y shimmer.</p>
+            <span class="no-tone">Paleta única — 12 tonos</span>
+            <div class="product-pricing"><div class="product-price">L1,056 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('o14','Colour Pop','After Hours Eyeshadow Palette','🌙',null,1056)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="o15" data-price="2213"><span class="product-badge">Lujo</span><div class="in-cart-badge">✓</div>
+          <div class="product-img">🍂</div>
+          <div class="product-info"><p class="product-brand">Anastasia Beverly Hills</p>
+            <h3 class="product-name">Fall Romance Eyeshadow Palette</h3>
+            <p class="product-desc">Paleta otoñal de ABH con tonos cálidos y metálicos. Alta pigmentación, fácil de difuminar y duradera.</p>
+            <span class="no-tone">Paleta única — 14 tonos</span>
+            <div class="product-pricing"><div class="product-price">L2,213 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('o15','Anastasia Beverly Hills','Fall Romance Eyeshadow Palette','🍂',null,2213)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="o16" data-price="2175"><span class="product-badge">Lujo</span><div class="in-cart-badge">✓</div>
+          <div class="product-img">🎭</div>
+          <div class="product-info"><p class="product-brand">Makeup by Mario</p>
+            <h3 class="product-name">Master Mattes Eyeshadow Palette: The Original</h3>
+            <p class="product-desc">La paleta de sombras mate de Mario Dedivanovic. Pigmentación profesional y ultra difuminables.</p>
+            <span class="no-tone">Paleta única — 12 tonos mate</span>
+            <div class="product-pricing"><div class="product-price">L2,175 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('o16','Makeup by Mario','Master Mattes Eyeshadow Palette','🎭',null,2175)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SETTING -->
+    <div class="cat-section" id="cat-setting">
+      <p class="cat-section-title">✦ <em>Setting Sprays & Polvos</em></p>
+      <div class="catalog-grid">
+
+        <div class="product-card" data-id="ss1" data-price="1474"><div class="in-cart-badge">✓</div>
+          <div class="product-img">💦</div>
+          <div class="product-info"><p class="product-brand">MAC Cosmetics</p>
+            <h3 class="product-name">Prep + Prime Fix+ Primer and Setting Spray</h3>
+            <p class="product-desc">Fija, hidrata y da glow. Favorito de maquillistas profesionales. Úsalo antes y después del maquillaje.</p>
+            <span class="tone-label">Selecciona versión</span>
+            <select class="tone-select" id="tone-ss1"><option value="">— Elige versión —</option><option>Original</option><option>Shimmer</option></select>
+            <div class="product-pricing"><div class="product-price">L1,474 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('ss1','MAC Cosmetics','Prep + Prime Fix+ Setting Spray','💦','tone-ss1',1474)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="ss2" data-price="1720"><span class="product-badge">Lujo</span><div class="in-cart-badge">✓</div>
+          <div class="product-img">👑</div>
+          <div class="product-info"><p class="product-brand">Charlotte Tilbury</p>
+            <h3 class="product-name">Airbrush Flawless Hydrating & Waterproof Setting Spray</h3>
+            <p class="product-desc">Fija el maquillaje con acabado airbrush. Hidratante y resistente al agua. Larga duración garantizada.</p>
+            <span class="no-tone">Talla única</span>
+            <div class="product-pricing"><div class="product-price">L1,720 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('ss2','Charlotte Tilbury','Airbrush Flawless Setting Spray','👑',null,1720)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="ss3" data-price="592"><div class="in-cart-badge">✓</div>
+          <div class="product-img">☁️</div>
+          <div class="product-info"><p class="product-brand">NYX Professional Makeup</p>
+            <h3 class="product-name">Wonder Snatch Setting Powder</h3>
+            <p class="product-desc">Polvo fijador translúcido ultra fino. Controla el brillo y fija sin efecto máscara. Finish natural mate.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-ss3"><option value="">— Elige un tono —</option><option>Translucent (universal)</option><option>Light/Medium</option><option>Medium/Dark</option></select>
+            <div class="product-pricing"><div class="product-price">L592 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('ss3','NYX Professional Makeup','Wonder Snatch Setting Powder','☁️','tone-ss3',592)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="ss4" data-price="1474"><span class="product-badge">El mejor</span><div class="in-cart-badge">✓</div>
+          <div class="product-img">💧</div>
+          <div class="product-info"><p class="product-brand">Urban Decay Cosmetics</p>
+            <h3 class="product-name">All Nighter Waterproof Makeup Setting Spray</h3>
+            <p class="product-desc">El fijador #1. Duración hasta 16 horas, finish invisible. Transfer-proof y resistente al agua.</p>
+            <span class="no-tone">Talla única</span>
+            <div class="product-pricing"><div class="product-price">L1,474 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('ss4','Urban Decay Cosmetics','All Nighter Waterproof Setting Spray','💧',null,1474)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="ss5" data-price="1959"><span class="product-badge">Lujo</span><div class="in-cart-badge">✓</div>
+          <div class="product-img">✨</div>
+          <div class="product-info"><p class="product-brand">Charlotte Tilbury</p>
+            <h3 class="product-name">Airbrush Flawless Finish Blurring & Setting Powder</h3>
+            <p class="product-desc">Polvo fijador de lujo con efecto blurring. Minimiza poros, difumina imperfecciones y fija todo el día.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-ss5"><option value="">— Elige un tono —</option><option>1 Fair</option><option>2 Light</option><option>3 Medium</option><option>4 Tan</option></select>
+            <div class="product-pricing"><div class="product-price">L1,959 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('ss5','Charlotte Tilbury','Airbrush Flawless Finish Setting Powder','✨','tone-ss5',1959)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="ss6" data-price="1708"><span class="product-badge">Lujo</span><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌟</div>
+          <div class="product-info"><p class="product-brand">Laura Mercier</p>
+            <h3 class="product-name">Translucent Loose Setting Powder</h3>
+            <p class="product-desc">El polvo suelto más famoso del mundo. Translúcido, ultra fino. Fija y difumina sin añadir color.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-ss6"><option value="">— Elige un tono —</option><option>Translucent (universal)</option><option>Translucent Medium Deep</option><option>Honey</option><option>Mocha</option></select>
+            <div class="product-pricing"><div class="product-price">L1,708 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('ss6','Laura Mercier','Translucent Loose Setting Powder','🌟','tone-ss6',1708)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="ss7" data-price="905"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌸</div>
+          <div class="product-info"><p class="product-brand">Milani</p>
+            <h3 class="product-name">Make It Last Original Natural Finish Setting Spray</h3>
+            <p class="product-desc">Spray fijador de larga duración con finish natural. Fórmula económica que compite con los mejores.</p>
+            <span class="no-tone">Talla única</span>
+            <div class="product-pricing"><div class="product-price">L905 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('ss7','Milani','Make It Last Setting Spray','🌸',null,905)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="ss8" data-price="592"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌿</div>
+          <div class="product-info"><p class="product-brand">Maybelline</p>
+            <h3 class="product-name">Fit Me Matte + Poreless Powder</h3>
+            <p class="product-desc">Polvo translúcido que controla el brillo y fija el maquillaje todo el día. Finish natural mate.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-ss8"><option value="">— Elige un tono —</option><option>Translucent (universal)</option><option>Classic Ivory</option><option>Natural Beige</option><option>Sun Beige</option><option>Coconut</option></select>
+            <div class="product-pricing"><div class="product-price">L592 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('ss8','Maybelline','Fit Me Matte + Poreless Powder','🌿','tone-ss8',592)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="ss9" data-price="736"><div class="in-cart-badge">✓</div>
+          <div class="product-img">💫</div>
+          <div class="product-info"><p class="product-brand">L'Oreal</p>
+            <h3 class="product-name">Infallible Blur-Fection Longwear Loose Setting Powder</h3>
+            <p class="product-desc">Polvo suelto de larga duración con efecto blur. Minimiza poros y controla el brillo sin resecar.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-ss9"><option value="">— Elige un tono —</option><option>Translucent (universal)</option><option>Light</option><option>Medium</option><option>Deep</option></select>
+            <div class="product-pricing"><div class="product-price">L736 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('ss9','L\'Oreal','Infallible Blur-Fection Loose Setting Powder','💫','tone-ss9',736)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="ss10" data-price="527"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌊</div>
+          <div class="product-info"><p class="product-brand">e.l.f. Cosmetics</p>
+            <h3 class="product-name">Power Grip Dewy Setting Spray</h3>
+            <p class="product-desc">Fijador con acabado dewy natural. Ideal para pieles secas, da hidratación y frescura duradera.</p>
+            <span class="no-tone">Talla única</span>
+            <div class="product-pricing"><div class="product-price">L527 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('ss10','e.l.f. Cosmetics','Power Grip Dewy Setting Spray','🌊',null,527)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="ss11" data-price="520"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🔒</div>
+          <div class="product-info"><p class="product-brand">NYX Professional Makeup</p>
+            <h3 class="product-name">The Face Glue Setting Spray</h3>
+            <p class="product-desc">Spray fijador ultra adhesivo. Agarra el maquillaje todo el día sin moverse. Finish invisible y duradero.</p>
+            <span class="no-tone">Talla única</span>
+            <div class="product-pricing"><div class="product-price">L520 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('ss11','NYX Professional Makeup','The Face Glue Setting Spray','🔒',null,520)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="ss12" data-price="1629"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🍃</div>
+          <div class="product-info"><p class="product-brand">MAC Cosmetics</p>
+            <h3 class="product-name">Fix + Stay Over Alcohol-Free 24hr Setting Spray</h3>
+            <p class="product-desc">Fijador sin alcohol de 24 horas. Formula hidratante que fija sin resecar. Finish natural de larga duración.</p>
+            <span class="no-tone">Talla única</span>
+            <div class="product-pricing"><div class="product-price">L1,629 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('ss12','MAC Cosmetics','Fix + Stay Over 24hr Setting Spray','🍃',null,1629)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="ss13" data-price="1240"><div class="in-cart-badge">✓</div>
+          <div class="product-img">💎</div>
+          <div class="product-info"><p class="product-brand">Rare Beauty</p>
+            <h3 class="product-name">Always An Optimist 4-in-1 Mist</h3>
+            <p class="product-desc">Bruma 4 en 1: prepara, fija, hidrata y refresca. El mist de Selena Gomez para un finish fresco y luminoso.</p>
+            <span class="no-tone">Talla única</span>
+            <div class="product-pricing"><div class="product-price">L1,240 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('ss13','Rare Beauty','Always An Optimist 4-in-1 Mist','💎',null,1240)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="ss14" data-price="1312"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌿</div>
+          <div class="product-info"><p class="product-brand">Rare Beauty</p>
+            <h3 class="product-name">True to Myself Tinted Pressed Finish Powder</h3>
+            <p class="product-desc">Polvo compacto tintado para retocar y fijar. Cobertura ligera buildable con finish natural.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-ss14"><option value="">— Elige un tono —</option><option>100W (muy claro)</option><option>200W (claro)</option><option>300W (medio)</option><option>400W (oscuro)</option></select>
+            <div class="product-pricing"><div class="product-price">L1,312 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('ss14','Rare Beauty','True to Myself Tinted Pressed Finish Powder','🌿','tone-ss14',1312)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="ss15" data-price="660"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌈</div>
+          <div class="product-info"><p class="product-brand">e.l.f. Cosmetics</p>
+            <h3 class="product-name">Halo Glow Powder Filter Pressed Powder</h3>
+            <p class="product-desc">Polvo compacto con efecto filtro de cámara. Glow natural buildable que ilumina y fija a la vez.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-ss15"><option value="">— Elige un tono —</option><option>Sheer/Cool (muy claro)</option><option>Light/Warm</option><option>Medium/Warm</option><option>Tan/Deep</option></select>
+            <div class="product-pricing"><div class="product-price">L660 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('ss15','e.l.f. Cosmetics','Halo Glow Powder Filter Pressed Powder','🌈','tone-ss15',660)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="ss16" data-price="952"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌙</div>
+          <div class="product-info"><p class="product-brand">NYX Professional Makeup</p>
+            <h3 class="product-name">Matte Finish Long Lasting Makeup Setting Spray</h3>
+            <p class="product-desc">Spray fijador matte de larga duración. Fórmula vegana que controla el brillo y fija sin endurecer.</p>
+            <span class="no-tone">Talla única</span>
+            <div class="product-pricing"><div class="product-price">L952 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('ss16','NYX Professional Makeup','Matte Finish Long Lasting Setting Spray','🌙',null,952)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="ss17" data-price="2031"><span class="product-badge">Lujo</span><div class="in-cart-badge">✓</div>
+          <div class="product-img">👑</div>
+          <div class="product-info"><p class="product-brand">Laura Mercier</p>
+            <h3 class="product-name">Translucent Pressed Setting Powder Ultra-Blur</h3>
+            <p class="product-desc">Polvo compacto translúcido con tecnología ultra-blur. Difumina imperfecciones y fija con un acabado perfecto.</p>
+            <span class="no-tone">Tono único: Translucent</span>
+            <div class="product-pricing"><div class="product-price">L2,031 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('ss17','Laura Mercier','Translucent Pressed Setting Powder Ultra-Blur','👑',null,2031)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="ss18" data-price="460"><div class="in-cart-badge">✓</div>
+          <div class="product-img">✨</div>
+          <div class="product-info"><p class="product-brand">e.l.f. Cosmetics</p>
+            <h3 class="product-name">Halo Glow Setting Powder</h3>
+            <p class="product-desc">Polvo fijador con glow sutil. Ilumina y fija a la vez para un acabado fresco y luminoso.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-ss18"><option value="">— Elige un tono —</option><option>Sheer/Light</option><option>Light/Medium</option><option>Medium/Tan</option><option>Tan/Deep</option></select>
+            <div class="product-pricing"><div class="product-price">L460 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('ss18','e.l.f. Cosmetics','Halo Glow Setting Powder','✨','tone-ss18',460)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="ss19" data-price="520"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌸</div>
+          <div class="product-info"><p class="product-brand">NYX Professional Makeup</p>
+            <h3 class="product-name">Marsh Mellow Matte Setting Spray</h3>
+            <p class="product-desc">Spray fijador con acabado matte suave como malvavisco. Fija y controla el brillo sin endurecer.</p>
+            <span class="no-tone">Talla única</span>
+            <div class="product-pricing"><div class="product-price">L520 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('ss19','NYX Professional Makeup','Marsh Mellow Matte Setting Spray','🌸',null,520)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="ss20" data-price="1429"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🔥</div>
+          <div class="product-info"><p class="product-brand">One Size</p>
+            <h3 class="product-name">On 'Till Dawn Mattifying Waterproof Setting Spray</h3>
+            <p class="product-desc">Spray fijador resistente al agua de larga duración. Matte intenso que dura toda la noche sin retoque.</p>
+            <span class="no-tone">Talla única</span>
+            <div class="product-pricing"><div class="product-price">L1,429 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('ss20','One Size','On Till Dawn Mattifying Setting Spray','🔥',null,1429)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="ss21" data-price="1528"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🎭</div>
+          <div class="product-info"><p class="product-brand">Makeup by Mario</p>
+            <h3 class="product-name">SurrealSkin Talc-Free Soft Blur Setting Powder</h3>
+            <p class="product-desc">Polvo fijador sin talco con efecto soft blur. Difumina y fija para una piel perfecta y natural.</p>
+            <span class="tone-label">Selecciona tono</span>
+            <select class="tone-select" id="tone-ss21"><option value="">— Elige un tono —</option><option>Universal Sheer</option><option>Light</option><option>Medium</option><option>Deep</option></select>
+            <div class="product-pricing"><div class="product-price">L1,528 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('ss21','Makeup by Mario','SurrealSkin Talc-Free Soft Blur Setting Powder','🎭','tone-ss21',1528)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SKINCARE -->
+    <div class="cat-section" id="cat-skincare">
+      <p class="cat-section-title">✦ <em>Skincare</em></p>
+      <div class="catalog-grid">
+
+        <div class="product-card" data-id="sk1" data-price="1311"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌿</div>
+          <div class="product-info"><p class="product-brand">La Roche-Posay</p>
+            <h3 class="product-name">Toleriane Double Repair Face Moisturizer with Ceramide</h3>
+            <p class="product-desc">Crema facial con ceramidas y niacinamida. Repara la barrera cutánea, hidrata 48h. Dermatológicamente probada.</p>
+            <span class="no-tone">Talla única</span>
+            <div class="product-pricing"><div class="product-price">L1,311 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('sk1','La Roche-Posay','Toleriane Double Repair Face Moisturizer','🌿',null,1311)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="sk2" data-price="981"><div class="in-cart-badge">✓</div>
+          <div class="product-img">⭐</div>
+          <div class="product-info"><p class="product-brand">Hero Cosmetics</p>
+            <h3 class="product-name">Mighty Patch Original Acne Pimple Patches</h3>
+            <p class="product-desc">Los parches para granos más famosos de USA. Absorben la impureza en horas mientras duermes.</p>
+            <span class="no-tone">Talla única — 36 parches</span>
+            <div class="product-pricing"><div class="product-price">L981 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('sk2','Hero Cosmetics','Mighty Patch Original Acne Pimple Patches','⭐',null,981)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="sk3" data-price="727"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🫧</div>
+          <div class="product-info"><p class="product-brand">Good Molecules</p>
+            <h3 class="product-name">Smoothing Azelaic Acid Face Cleanser</h3>
+            <p class="product-desc">Limpiador facial con ácido azelaico. Suaviza la textura, controla el brillo y limpia sin resecar.</p>
+            <span class="no-tone">Talla única</span>
+            <div class="product-pricing"><div class="product-price">L727 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('sk3','Good Molecules','Smoothing Azelaic Acid Face Cleanser','🫧',null,727)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="sk4" data-price="408"><span class="product-badge">Más pedido</span><div class="in-cart-badge">✓</div>
+          <div class="product-img">💧</div>
+          <div class="product-info"><p class="product-brand">The Ordinary</p>
+            <h3 class="product-name">Niacinamide 10% + Zinc 1%</h3>
+            <p class="product-desc">El sérum más vendido del mundo. Reduce poros, manchas y exceso de brillo. Resultados en 4 semanas.</p>
+            <span class="no-tone">Talla única</span>
+            <div class="product-pricing"><div class="product-price">L408 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('sk4','The Ordinary','Niacinamide 10% + Zinc 1%','💧',null,408)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="sk5" data-price="565"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🥥</div>
+          <div class="product-info"><p class="product-brand">Tree Hut</p>
+            <h3 class="product-name">Coco Colada Shea Sugar Coconut Body Scrub</h3>
+            <p class="product-desc">Exfoliante corporal de azúcar con coco y manteca de karité. Piel suave, hidratada y con aroma tropical.</p>
+            <span class="no-tone">Talla única</span>
+            <div class="product-pricing"><div class="product-price">L565 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('sk5','Tree Hut','Coco Colada Shea Sugar Body Scrub','🥥',null,565)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="sk6" data-price="553"><div class="in-cart-badge">✓</div>
+          <div class="product-img">✨</div>
+          <div class="product-info"><p class="product-brand">The Ordinary</p>
+            <h3 class="product-name">AHA 30% + BHA 2% High-Strength Peeling Solution</h3>
+            <p class="product-desc">Exfoliante químico de alta concentración. Ilumina, afina textura y reduce manchas. Úsalo 1-2 veces por semana.</p>
+            <span class="no-tone">Talla única</span>
+            <div class="product-pricing"><div class="product-price">L553 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('sk6','The Ordinary','AHA 30% + BHA 2% Peeling Solution','✨',null,553)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="sk7" data-price="829"><div class="in-cart-badge">✓</div>
+          <div class="product-img">⭐</div>
+          <div class="product-info"><p class="product-brand">Starface</p>
+            <h3 class="product-name">Hydro-Star Pimple Patches + Refillable Compact</h3>
+            <p class="product-desc">Parches en forma de estrella para granos. Compact rellenable y adorable. Absorben impurezas mientras los usas.</p>
+            <span class="no-tone">32 parches + compact</span>
+            <div class="product-pricing"><div class="product-price">L829 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('sk7','Starface','Hydro-Star Pimple Patches + Compact','⭐',null,829)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="sk8" data-price="1028"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🔬</div>
+          <div class="product-info"><p class="product-brand">Medicube</p>
+            <h3 class="product-name">Zero Pore Pad Korean Skincare</h3>
+            <p class="product-desc">Pads coreanos para minimizar poros y afinar la textura. Con BHA y ácido salicílico. 70 pads por caja.</p>
+            <span class="no-tone">70 pads</span>
+            <div class="product-pricing"><div class="product-price">L1,028 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('sk8','Medicube','Zero Pore Pad Korean Skincare','🔬',null,1028)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="sk9" data-price="916"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌊</div>
+          <div class="product-info"><p class="product-brand">Byoma</p>
+            <h3 class="product-name">Hydrating Milky Toner</h3>
+            <p class="product-desc">Tónico lechoso con barrera de ceramidas. Hidrata, calma y prepara la piel para el resto del skincare.</p>
+            <span class="no-tone">Talla única</span>
+            <div class="product-pricing"><div class="product-price">L916 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('sk9','Byoma','Hydrating Milky Toner','🌊',null,916)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="sk10" data-price="718"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌿</div>
+          <div class="product-info"><p class="product-brand">The Ordinary</p>
+            <h3 class="product-name">Glycolic Acid 7% Toning Solution</h3>
+            <p class="product-desc">Tónico exfoliante con ácido glicólico al 7%. Afina la textura, ilumina y mejora el tono de la piel.</p>
+            <span class="no-tone">Talla única</span>
+            <div class="product-pricing"><div class="product-price">L718 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('sk10','The Ordinary','Glycolic Acid 7% Toning Solution','🌿',null,718)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="sk11" data-price="569"><div class="in-cart-badge">✓</div>
+          <div class="product-img">💦</div>
+          <div class="product-info"><p class="product-brand">The Ordinary</p>
+            <h3 class="product-name">Hyaluronic Acid 2% + B5 Hydrating Serum</h3>
+            <p class="product-desc">Sérum de ácido hialurónico de 3 pesos moleculares. Hidratación profunda en todas las capas de la piel.</p>
+            <span class="no-tone">Talla única</span>
+            <div class="product-pricing"><div class="product-price">L569 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('sk11','The Ordinary','Hyaluronic Acid 2% + B5 Hydrating Serum','💦',null,569)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="sk12" data-price="880"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🫧</div>
+          <div class="product-info"><p class="product-brand">e.l.f. Skin</p>
+            <h3 class="product-name">Skin Holy Hydration Makeup Melting Cleansing Balm</h3>
+            <p class="product-desc">Bálsamo limpiador que derrite el maquillaje. Hidrata mientras limpia. Deja la piel suave y sin residuos.</p>
+            <span class="no-tone">Talla única</span>
+            <div class="product-pricing"><div class="product-price">L880 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('sk12','e.l.f. Skin','Skin Holy Hydration Makeup Melting Cleansing Balm','🫧',null,880)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="sk13" data-price="697"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌸</div>
+          <div class="product-info"><p class="product-brand">Byoma</p>
+            <h3 class="product-name">Creamy Jelly Face Cleanser</h3>
+            <p class="product-desc">Limpiador en jalea cremosa con barrera de ceramidas. Limpia suavemente sin alterar el pH de la piel.</p>
+            <span class="no-tone">Talla única</span>
+            <div class="product-pricing"><div class="product-price">L697 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('sk13','Byoma','Creamy Jelly Face Cleanser','🌸',null,697)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="sk14" data-price="1028"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🔬</div>
+          <div class="product-info"><p class="product-brand">Medicube</p>
+            <h3 class="product-name">PDRN Pink Niacinamide Milky Toner</h3>
+            <p class="product-desc">Tónico lechoso coreano con PDRN y niacinamida. Ilumina, hidrata y afina la textura de la piel.</p>
+            <span class="no-tone">Talla única</span>
+            <div class="product-pricing"><div class="product-price">L1,028 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('sk14','Medicube','PDRN Pink Niacinamide Milky Toner','🔬',null,1028)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="sk15" data-price="780"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🫧</div>
+          <div class="product-info"><p class="product-brand">Bubble Skincare</p>
+            <h3 class="product-name">Cosmic Silk Hydrating Milky Toner</h3>
+            <p class="product-desc">Tónico lechoso ultra hidratante de Bubble Skincare. Suaviza y calma la piel para una rutina completa.</p>
+            <span class="no-tone">Talla única</span>
+            <div class="product-pricing"><div class="product-price">L780 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('sk15','Bubble Skincare','Cosmic Silk Hydrating Milky Toner','🫧',null,780)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="sk16" data-price="780"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌊</div>
+          <div class="product-info"><p class="product-brand">Bubble Skincare</p>
+            <h3 class="product-name">Fredy Start Gel Cleanser</h3>
+            <p class="product-desc">Limpiador en gel refrescante de Bubble Skincare. Limpia profundamente sin resecar, ideal para pieles mixtas.</p>
+            <span class="no-tone">Talla única</span>
+            <div class="product-pricing"><div class="product-price">L780 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('sk16','Bubble Skincare','Fredy Start Gel Cleanser','🌊',null,780)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="sk17" data-price="1069"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🔬</div>
+          <div class="product-info"><p class="product-brand">Medicube</p>
+            <h3 class="product-name">PDRN Pink Collagen Capsule Cream</h3>
+            <p class="product-desc">Crema de colágeno y PDRN en cápsulas. Firming, iluminador y antiedad. El secreto del glass skin coreano.</p>
+            <span class="no-tone">Talla única</span>
+            <div class="product-pricing"><div class="product-price">L1,069 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('sk17','Medicube','PDRN Pink Collagen Capsule Cream','🔬',null,1069)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="sk18" data-price="1069"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🍊</div>
+          <div class="product-info"><p class="product-brand">Medicube</p>
+            <h3 class="product-name">Deep Vita C Capsule Cream</h3>
+            <p class="product-desc">Crema de vitamina C en cápsulas. Ilumina, unifica el tono y da un glow radiante de larga duración.</p>
+            <span class="no-tone">Talla única</span>
+            <div class="product-pricing"><div class="product-price">L1,069 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('sk18','Medicube','Deep Vita C Capsule Cream','🍊',null,1069)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="sk19" data-price="693"><div class="in-cart-badge">✓</div>
+          <div class="product-img">💧</div>
+          <div class="product-info"><p class="product-brand">Bubble Skincare</p>
+            <h3 class="product-name">Cloud Surf Water Cream Moisturizer</h3>
+            <p class="product-desc">Crema hidratante de textura agua ultra ligera. Hidratación fresca e inmediata sin sensación grasa.</p>
+            <span class="no-tone">Talla única</span>
+            <div class="product-pricing"><div class="product-price">L693 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('sk19','Bubble Skincare','Cloud Surf Water Cream Moisturizer','💧',null,693)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="sk20" data-price="986"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🔬</div>
+          <div class="product-info"><p class="product-brand">Medicube</p>
+            <h3 class="product-name">TXA Niacinamide Hydrating Capsule Face Cream</h3>
+            <p class="product-desc">Crema hidratante con TXA y niacinamida. Unifica el tono, minimiza poros e hidrata profundamente.</p>
+            <span class="no-tone">Talla única</span>
+            <div class="product-pricing"><div class="product-price">L986 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('sk20','Medicube','TXA Niacinamide Hydrating Capsule Face Cream','🔬',null,986)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="sk21" data-price="829"><div class="in-cart-badge">✓</div>
+          <div class="product-img">☀️</div>
+          <div class="product-info"><p class="product-brand">Bubble Skincare</p>
+            <h3 class="product-name">Day Dream Vitamin C + Niacinamide Serum</h3>
+            <p class="product-desc">Sérum de vitamina C y niacinamida. Ilumina, afina y protege contra el daño ambiental. Glow diario garantizado.</p>
+            <span class="no-tone">Talla única</span>
+            <div class="product-pricing"><div class="product-price">L829 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('sk21','Bubble Skincare','Day Dream Vitamin C + Niacinamide Serum','☀️',null,829)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="sk22" data-price="1280"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌹</div>
+          <div class="product-info"><p class="product-brand">Rhode</p>
+            <h3 class="product-name">Glazing Mist Hydrating Face Spray</h3>
+            <p class="product-desc">Bruma facial hidratante de Hailey Bieber. Da el efecto glazed skin icónico. Fresca, luminosa y buildable.</p>
+            <span class="no-tone">Talla única</span>
+            <div class="product-pricing"><div class="product-price">L1,280 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('sk22','Rhode','Glazing Mist Hydrating Face Spray','🌹',null,1280)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="sk23" data-price="1354"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌸</div>
+          <div class="product-info"><p class="product-brand">Rhode</p>
+            <h3 class="product-name">Glazing Milk Ceramide Facial Essence</h3>
+            <p class="product-desc">Esencia láctea con ceramidas de Rhode. Prepara e hidrata la piel para el máximo efecto glazed skin.</p>
+            <span class="no-tone">Talla única</span>
+            <div class="product-pricing"><div class="product-price">L1,354 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('sk23','Rhode','Glazing Milk Ceramide Facial Essence','🌸',null,1354)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="sk24" data-price="1205"><div class="in-cart-badge">✓</div>
+          <div class="product-img">💊</div>
+          <div class="product-info"><p class="product-brand">Tower 28</p>
+            <h3 class="product-name">SOS Daily Hypochlorous Acid Spray for Breakouts & Redness</h3>
+            <p class="product-desc">Spray de ácido hipocloroso para calmar brotes, rojeces e irritaciones. Limpia y calma la piel en segundos.</p>
+            <span class="no-tone">Talla única</span>
+            <div class="product-pricing"><div class="product-price">L1,205 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('sk24','Tower 28','SOS Daily Hypochlorous Acid Spray','💊',null,1205)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- BATH & BODY WORKS -->
+    <div class="cat-section" id="cat-bbw">
+      <p class="cat-section-title">✦ <em>Bath & Body Works</em></p>
+      <div class="catalog-grid">
+
+        <div class="product-card" data-id="bbw1" data-price="969"><span class="product-badge">Top ventas</span><div class="in-cart-badge">✓</div>
+          <div class="product-img">🌸</div>
+          <div class="product-info"><p class="product-brand">Bath & Body Works</p>
+            <h3 class="product-name">Fine Fragrance Mist</h3>
+            <p class="product-desc">Body mist de larga duración con aloe y vitamina E. Las fragancias icónicas de BBW en formato ligero. L842 la mayoría, L806 Waikiki Beach Coconut.</p>
+            <span class="tone-label">Selecciona aroma</span>
+            <select class="tone-select" id="tone-bbw1"><option value="">— Elige aroma —</option><option>All Eyes on Her — L842</option><option>Champagne Toast — L842</option><option>Japanese Cherry Blossom — L842</option><option>In the Stars — L842</option><option>Into the Night — L842</option><option>A Thousand Wishes — L842</option><option>Life's Fairytale — L842</option><option>Waikiki Beach Coconut — L806</option></select>
+            <div class="product-pricing"><div class="product-price">L806 — L842 <span>según aroma</span></div></div>
+            <button class="add-btn" onclick="addToCart('bbw1','Bath & Body Works','Fine Fragrance Mist','🌸','tone-bbw1',969)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="bbw2" data-price="969"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🧴</div>
+          <div class="product-info"><p class="product-brand">Bath & Body Works</p>
+            <h3 class="product-name">Body Cream</h3>
+            <p class="product-desc">Crema corporal ultra hidratante y rica. Fragancia duradera con textura de lujo. Las más vendidas de BBW. L842 la mayoría, L806 algunos aromas.</p>
+            <span class="tone-label">Selecciona aroma</span>
+            <select class="tone-select" id="tone-bbw2"><option value="">— Elige aroma —</option><option>All Eyes on Her — L842</option><option>Japanese Cherry Blossom — L842</option><option>Champagne Toast — L842</option><option>Into the Night — L842</option><option>Life's Fairytale — L842</option><option>A Thousand Wishes — L842</option><option>In the Stars — L842</option><option>Waikiki Beach Coconut — L806</option><option>Pink Pineapple Sunrise — L806</option><option>Ocean — L806</option></select>
+            <div class="product-pricing"><div class="product-price">L806 — L842 <span>según aroma</span></div></div>
+            <button class="add-btn" onclick="addToCart('bbw2','Bath & Body Works','Body Cream','🧴','tone-bbw2',969)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="bbw3" data-price="1224"><div class="in-cart-badge">✓</div>
+          <div class="product-img">🕯️</div>
+          <div class="product-info"><p class="product-brand">Bath & Body Works</p>
+            <h3 class="product-name">3-Wick Scented Candle</h3>
+            <p class="product-desc">Las velas aromáticas más famosas del mundo. Hasta 45 horas de fragancia. Perfectas para el hogar o de regalo. Todas L1,058.</p>
+            <span class="tone-label">Selecciona aroma</span>
+            <select class="tone-select" id="tone-bbw3"><option value="">— Elige aroma —</option><option>Mahogany Teakwood Intense</option><option>Champagne Toast</option><option>Pink Pineapple Sunrise</option><option>Sweet Orange & Agave</option><option>Lemon Vanilla</option><option>Black Cherry Merlot</option><option>Raspberries & Whipped Vanilla</option></select>
+            <div class="product-pricing"><div class="product-price">L1,058 <span>todo incluido</span></div></div>
+            <button class="add-btn" onclick="addToCart('bbw3','Bath & Body Works','3-Wick Scented Candle','🕯️','tone-bbw3',1058)">+ Agregar al pedido</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CHECKOUT -->
+<section class="checkout-section" id="checkoutSection">
+  <div class="checkout-header reveal">
+    <p class="section-label">Último paso</p>
+    <h2 class="section-title">Confirma<br><em>tu pedido</em></h2>
+    <div class="gold-line"></div>
+  </div>
+  <div class="order-summary reveal" id="orderSummary"></div>
+  <form id="orderForm" class="reveal" action="https://formspree.io/f/xqejbyrj" method="POST" enctype="multipart/form-data">
+    <!-- Campos ocultos para datos del carrito -->
+    <input type="hidden" name="_subject" value="✦ Nuevo pedido — Aurum Beauty HN">
+    <input type="hidden" name="_replyto" id="replyToEmail">
+    <input type="hidden" name="Productos_del_pedido" id="hiddenProducts">
+    <input type="hidden" name="Total_del_pedido" id="hiddenTotal">
+    <input type="hidden" name="Adelanto_50_porciento" id="hiddenAdelanto">
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Nombre completo</label>
+        <input type="text" id="clientName" name="Nombre" class="form-input" placeholder="Tu nombre" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Correo electrónico</label>
+        <input type="email" id="clientEmail" name="Correo" class="form-input" placeholder="tucorreo@gmail.com" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Ciudad en Honduras</label>
+      <select class="form-select" name="Ciudad" required>
+        <option value="" disabled selected style="background:#1a1a1a">Selecciona tu ciudad</option>
+        <option style="background:#1a1a1a">Tegucigalpa</option>
+        <option style="background:#1a1a1a">San Pedro Sula</option>
+        <option style="background:#1a1a1a">La Ceiba</option>
+        <option style="background:#1a1a1a">Choluteca</option>
+        <option style="background:#1a1a1a">Otra ciudad</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Comentarios adicionales</label>
+      <textarea class="form-textarea" id="extraNotes" name="Comentarios" placeholder="Aromas para el set de jabones, instrucciones especiales, preguntas..."></textarea>
+    </div>
+    <div class="form-divider">datos de pago</div>
+    <div style="padding:24px;border:1px solid rgba(201,168,76,0.2);margin-bottom:28px;background:rgba(201,168,76,0.04);">
+      <p style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;">Transferencia bancaria · 50% de adelanto</p>
+      <p style="font-size:12px;color:var(--text-muted);line-height:2.4;">
+        🏦 &nbsp;<strong style="color:var(--white)">Banco:</strong> [Tu banco]<br>
+        💳 &nbsp;<strong style="color:var(--white)">Cuenta:</strong> [Tu número de cuenta]<br>
+        👤 &nbsp;<strong style="color:var(--white)">Titular:</strong> [Tu nombre]<br>
+        📱 &nbsp;<strong style="color:var(--white)">Pago móvil:</strong> [Tu número]
+      </p>
+      <div style="margin-top:16px;padding-top:16px;border-top:1px solid rgba(201,168,76,0.1);">
+        <p style="font-size:11px;color:var(--text-muted);line-height:2;">
+          ✦ &nbsp;Pedidos cierran el <strong style="color:var(--white)">día 15 de cada mes</strong>.<br>
+          ✦ &nbsp;Entrega estimada: <strong style="color:var(--white)">15 a 25 días hábiles</strong>.<br>
+          ✦ &nbsp;Productos <strong style="color:var(--white)">100% originales</strong>, sellados de fábrica.
+        </p>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Comprobante de transferencia</label>
+      <div class="file-upload-area" id="uploadArea">
+        <input type="file" id="comprobanteFile" name="Comprobante_de_transferencia" accept="image/*,.pdf" onchange="handleFile(this)">
+        <div class="file-upload-icon">📎</div>
+        <p class="file-upload-text"><strong>Sube tu comprobante aquí</strong><br>Arrastrá o tocá para seleccionar · JPG, PNG o PDF</p>
+      </div>
+      <div class="file-preview" id="filePreview"></div>
+      <p class="form-note" id="comprobanteHint">Si aún no has transferido, envíalo después por correo.</p>
+    </div>
+    <button type="submit" class="submit-btn">Enviar pedido</button>
+  </form>
+  <div class="success-msg" id="successMsg">
+    <div class="success-icon">✦</div>
+    <h3 class="success-title">¡Pedido recibido!</h3>
+    <p class="success-text" id="successText"></p>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo"><img src="img/logo.png" alt="Aurum Beauty HN"></div>
+  <p class="footer-tagline">Belleza Premium · Desde USA · Para Honduras</p>
+  <div class="footer-social"><a href="#">Instagram</a></div>
+  <p class="footer-copy">© 2026 Aurum Beauty HN · Todos los derechos reservados</p>
+</footer>
+
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-drawer-header">
+    <div class="cart-drawer-title">Mi pedido <span id="drawerCount"></span></div>
+    <button class="cart-close" onclick="toggleCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty"><div class="cart-empty-icon">🛒</div><p class="cart-empty-text">Tu pedido está vacío.<br>Agrega productos del catálogo.</p></div>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-subtotal">
+      <span class="cart-subtotal-label">Subtotal</span>
+      <span class="cart-subtotal-amount" id="cartTotal">L0</span>
+    </div>
+    <p class="cart-note">✦ Precios todo incluido · 50% de adelanto requerido</p>
+    <button class="cart-checkout-btn" id="checkoutBtn" onclick="goToCheckout()" disabled>Continuar con mis datos →</button>
+  </div>
+</div>
+
+<script>
+  const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx-4+'px';cursor.style.top=my-4+'px';});
+  (function anim(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(anim);})();
+
+  new IntersectionObserver(entries=>{entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),i*80);});},{threshold:0.1}).observe||document.querySelectorAll('.reveal').forEach(r=>{new IntersectionObserver(([e])=>{if(e.isIntersecting)r.classList.add('visible');}).observe(r);});
+  const obs=new IntersectionObserver(entries=>{entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),i*80);});},{threshold:0.1});
+  document.querySelectorAll('.reveal').forEach(r=>obs.observe(r));
+
+  function switchCat(cat,btn){
+    document.querySelectorAll('.cat-tab').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.cat-section').forEach(s=>s.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('cat-'+cat).classList.add('active');
+  }
+
+  let cart=[];
+
+  function addToCart(id,brand,name,emoji,toneId,price){
+    const tone=toneId?document.getElementById(toneId).value:null;
+    cart=cart.filter(i=>i.id!==id);
+    cart.push({id,brand,name,emoji,tone,price});
+    updateCart();
+    const card=document.querySelector('[data-id="'+id+'"]');
+    const btn=card.querySelector('.add-btn');
+    card.classList.add('in-cart');
+    btn.textContent='✓ Agregado';
+    btn.classList.add('added');
+    setTimeout(()=>openCart(),300);
+  }
+
+  function removeFromCart(id){
+    cart=cart.filter(i=>i.id!==id);
+    const card=document.querySelector('[data-id="'+id+'"]');
+    if(card){card.classList.remove('in-cart');const btn=card.querySelector('.add-btn');btn.textContent='+ Agregar al pedido';btn.classList.remove('added');}
+    updateCart();
+  }
+
+  function updateCart(){
+    const count=cart.length,total=cart.reduce((s,i)=>s+i.price,0);
+    document.getElementById('cartCount').textContent=count;
+    document.getElementById('drawerCount').textContent=count>0?'('+count+')':'';
+    document.getElementById('cartTotal').textContent='L'+total.toLocaleString();
+    document.getElementById('checkoutBtn').disabled=count===0;
+    const el=document.getElementById('cartItems');
+    el.innerHTML=count===0?'<div class="cart-empty"><div class="cart-empty-icon">🛒</div><p class="cart-empty-text">Tu pedido está vacío.<br>Agrega productos del catálogo.</p></div>':
+      cart.map(item=>`<div class="cart-item"><div class="cart-item-emoji">${item.emoji}</div><div class="cart-item-info"><div class="cart-item-brand">${item.brand}</div><div class="cart-item-name">${item.name}</div>${item.tone?`<div class="cart-item-tone">${item.tone}</div>`:''}<div class="cart-item-price">L${item.price.toLocaleString()}</div></div><button class="cart-item-remove" onclick="removeFromCart('${item.id}')">✕</button></div>`).join('');
+  }
+
+  function toggleCart(){document.getElementById('cartDrawer').classList.contains('open')?closeCart():openCart();}
+  function openCart(){document.getElementById('cartDrawer').classList.add('open');document.getElementById('cartOverlay').classList.add('open');}
+  function closeCart(){document.getElementById('cartDrawer').classList.remove('open');document.getElementById('cartOverlay').classList.remove('open');}
+
+  function goToCheckout(){
+    closeCart();
+    const section=document.getElementById('checkoutSection');
+    section.classList.add('visible');
+    const total=cart.reduce((s,i)=>s+i.price,0),adelanto=Math.round(total*0.5);
+    document.getElementById('orderSummary').innerHTML=`
+      <p class="summary-title">Resumen de tu pedido</p>
+      ${cart.map(item=>`<div class="summary-item"><div><div>${item.emoji} ${item.brand} — ${item.name}</div>${item.tone?`<div class="summary-item-tone">Tono/Aroma: ${item.tone}</div>`:''}</div><div class="summary-item-price">L${item.price.toLocaleString()}</div></div>`).join('')}
+      <div class="summary-total"><span style="font-size:11px;letter-spacing:2px;text-transform:uppercase;">Total</span><span class="summary-total-amount">L${total.toLocaleString()}</span></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding:12px 0;border-top:1px solid rgba(30,58,138,0.1);">
+        <span style="font-size:11px;color:var(--text-muted);">50% de adelanto</span>
+        <span style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--blue-light);">L${adelanto.toLocaleString()}</span>
+      </div>
+      <button class="edit-cart-btn" onclick="editCart()">← Editar productos</button>`;
+    setTimeout(()=>section.scrollIntoView({behavior:'smooth',block:'start'}),100);
+  }
+
+  function editCart(){document.getElementById('checkoutSection').classList.remove('visible');openCart();}
+
+  function swapBlush1(tone){
+    var imgs={
+      'Happy (coral vivo)':'https://media.ulta.com/i/ulta/2647881?w=500&h=500',
+      'Joy (rosado brillante)':'https://media.ulta.com/i/ulta/2647883?w=500&h=500',
+      'Hope (nude rosado)':'https://media.ulta.com/i/ulta/2647882?w=500&h=500',
+      'Lucky (melocotón)':'https://media.ulta.com/i/ulta/2647884?w=500&h=500',
+      'Bliss (rosa suave)':'https://media.ulta.com/i/ulta/2647890?w=500&h=500',
+      'Encourage (terracota)':'https://media.ulta.com/i/ulta/2647879?w=500&h=500',
+      'Grateful (durazno dorado)':'https://media.ulta.com/i/ulta/2647880?w=500&h=500'
+    };
+    var el=document.getElementById('img-bl1');
+    if(el && imgs[tone]){el.style.opacity=0;setTimeout(function(){el.src=imgs[tone];el.style.opacity=1;},200);}
+  }
+
+  function handleFile(input){
+    const file=input.files[0];if(!file)return;
+    const preview=document.getElementById('filePreview');
+    preview.style.display='block';
+    preview.innerHTML=(file.type.includes('pdf')?'📄':'🖼️')+' &nbsp;<strong>'+file.name+'</strong> &nbsp;·&nbsp;'+(file.size/1024).toFixed(0)+' KB &nbsp;<span style="color:var(--gold-light)">✓ Listo</span>';
+    document.getElementById('uploadArea').style.borderColor='var(--gold)';
+  }
+
+  document.getElementById('orderForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    const name=document.getElementById('clientName').value,email=document.getElementById('clientEmail').value;
+    const file=document.getElementById('comprobanteFile').files[0];
+    const total=cart.reduce((s,i)=>s+i.price,0),adelanto=Math.round(total*0.5);
+
+    // Poblar campos ocultos para Formspree
+    document.getElementById('replyToEmail').value=email;
+    const productLines=cart.map(i=>`${i.brand} — ${i.name}${i.tone?' ('+i.tone+')':''}: L${i.price.toLocaleString()}`).join(' | ');
+    document.getElementById('hiddenProducts').value=productLines;
+    document.getElementById('hiddenTotal').value='L'+total.toLocaleString();
+    document.getElementById('hiddenAdelanto').value='L'+adelanto.toLocaleString();
+
+    const btn=this.querySelector('.submit-btn');
+
+    btn.textContent='Enviando...';btn.disabled=true;
+
+    fetch('https://formspree.io/f/xqejbyrj',{method:'POST',body:new FormData(this),headers:{Accept:'application/json'}})
+      .then(r=>{
+        if(r.ok){
+          this.style.display='none';
+          document.getElementById('successText').innerHTML=`Hola <strong style="color:var(--blue)">${name}</strong>, tu pedido fue recibido. 💙<br><br>Enviamos la confirmación a <strong style="color:var(--black)">${email}</strong><br><br><span style="font-size:11px;display:block;text-align:left;padding:16px;border:1px solid rgba(30,58,138,0.15);background:rgba(30,58,138,0.04);line-height:2.2;">${cart.map(i=>`📦 ${i.brand} — ${i.name}${i.tone?' · '+i.tone:''} · <strong style="color:var(--blue)">L${i.price.toLocaleString()}</strong>`).join('<br>')}<br><br>💳 Adelanto requerido: <strong style="color:var(--blue)">L${adelanto.toLocaleString()}</strong><br>${file?'✓ Comprobante adjunto: '+file.name:'⚠ Sin comprobante — envíalo después por Instagram.'}</span><br>Nos pondremos en contacto en menos de 24 horas. ✦`;
+          document.getElementById('successMsg').classList.add('show');
+        } else {
+          btn.textContent='Enviar pedido';btn.disabled=false;
+          alert('Hubo un error al enviar. Intenta de nuevo o contáctanos por Instagram.');
+        }
+      })
+      .catch(()=>{btn.textContent='Enviar pedido';btn.disabled=false;alert('Sin conexión. Verifica tu internet e intenta de nuevo.');});
+  });
+</script>
+
+<script>
+// Imágenes por producto y tono
+var productImages = {
+  'tone-bl1': {
+    'Happy (cool pink)': 'img/bl1-happy.jpg',
+    'Joy (muted peach)': 'img/bl1-joy.jpg',
+    'Hope (nude mauve)': 'img/bl1-hope.jpg',
+    'Bliss (nude pink)': 'img/bl1-bliss.jpg',
+    'Encourage (soft neutral pink)': 'img/bl1-encourage.jpg',
+    'Grateful (true red)': 'img/bl1-grateful.jpg'
+  }
+};
+
+// Imagen inicial para bl1
+var bl1img = document.createElement('img');
+bl1img.id = 'img-bl1';
+bl1img.src = 'img/bl1-happy.jpg';
+bl1img.alt = 'Rare Beauty Soft Pinch Liquid Blush';
+bl1img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;transition:opacity 0.3s;';
+var bl1div = document.querySelector('[data-id="bl1"] .product-img');
+if(bl1div){ bl1div.innerHTML = ''; bl1div.style.padding = '0'; bl1div.appendChild(bl1img); }
+
+// Listener para cambio de tono
+document.addEventListener('change', function(e) {
+  if(!e.target.classList.contains('tone-select')) return;
+  var id = e.target.id;
+  var tone = e.target.value;
+  if(!productImages[id] || !productImages[id][tone]) return;
+  var imgId = 'img-' + id.replace('tone-','');
+  var el = document.getElementById(imgId);
+  if(!el) return;
+  el.style.opacity = '0';
+  setTimeout(function(){ el.src = productImages[id][tone]; el.style.opacity = '1'; }, 200);
+});
+</script>
+</body>
+</html>
